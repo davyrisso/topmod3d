@@ -14,6 +14,7 @@ Register an account at [qt.io](https://www.qt.io/) (yes, you have to).
 
 Build steps:
  1. Download and install [Qt 5.13](qt-opensource-mac-x64-5.13.0.dmg) at https://download.qt.io/archive/qt/5.13/5.13.0/.
+    - Alias `qmake` with the local installation (by default `/Users/[user]/Qt5.13.0/5.13.0/clang_64/bin/qmake`)
  2. Clone this repo:
     - `$ git clone git@github.com:davyrisso/topmod3d.git`
     - `$ cd topmod3d`
@@ -38,6 +39,7 @@ Build steps:
          - `$ sudo apt-get install libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 libxcb-xkb-dev libxkbcommon-x11-0`
       3. Install Qt
          - `$ ./qt-unified-linux-x64-4.6.0-online.run install qt.qt5.5130 --accept-licenses --confirm-command --accept-messages --email [Qt account email] --pw [Qt account password]`
+      4. Alias `qmake` with the local installation (by default `/home/[user]/Qt/5.13.0/gcc_64/bin/qmake`)
    2. Install dependencies:
       - `$ sudo apt-get install libgl-dev libglu-dev`
    3. Clone this repo:
