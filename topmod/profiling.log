@@ -1,0 +1,29 @@
+gprof -a TopMod -f MainWindow::subdivideDooSabin
+
+First run:
+
+DooSabin:0:0:0:0
+DooSabin:0:0.03:0:0
+DooSabin:0.03:0.11:0.02:0
+DooSabin:0.19:0.39:0.11:0
+DooSabin:4.95:1.57:0.44:0
+DooSabin:107.97:6.66:1.81:0
+
+After adding a pool for DLFLFaceVertex:
+
+DooSabin:0:0:0:0
+DooSabin:0:0.03:0:0
+DooSabin:0.04:0.09:0.03:0
+DooSabin:0.18:0.4:0.11:0
+DooSabin:3.57:1.59:0.44:0
+DooSabin:94.9:6.67:1.78:0
+
+Added index for DLFLFace::face_list, DLFLFace::edge_list, DLFLFace::vertex_list and DLFLMaterial::faces
+
+DooSabin:0:0:0:0
+DooSabin:0.01:0:0:0
+DooSabin:0.03:0:0.02:0
+DooSabin:0.15:0:0.06:0
+DooSabin:1.59:0:0.23:0
+DooSabin:26.24:0:0.89:0
+

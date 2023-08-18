@@ -1,0 +1,12 @@
+CREATE ..\..\lib\libdlflcore.a
+ADDMOD release\DLFLCommon.o
+ADDMOD release\DLFLCore.o
+ADDMOD release\DLFLCoreExt.o
+ADDMOD release\DLFLEdge.o
+ADDMOD release\DLFLFace.o
+ADDMOD release\DLFLFaceVertex.o
+ADDMOD release\DLFLFile.o
+ADDMOD release\DLFLFileAlt.o
+ADDMOD release\DLFLObject.o
+ADDMOD release\DLFLVertex.o
+SAVE

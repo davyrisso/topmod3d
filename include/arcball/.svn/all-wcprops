@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/topmod/!svn/ver/7/topmod_gui/include/arcball
+END
+arcball.pro
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/arcball/arcball.pro
+END
+BallMath.hh
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/arcball/BallMath.hh
+END
+DollyControl.hh
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/topmod/!svn/ver/7/topmod_gui/include/arcball/DollyControl.hh
+END
+ZoomControl.hh
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/topmod/!svn/ver/7/topmod_gui/include/arcball/ZoomControl.hh
+END
+Arcball.cc
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/topmod/!svn/ver/7/topmod_gui/include/arcball/Arcball.cc
+END
+TransControl.hh
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/topmod/!svn/ver/7/topmod_gui/include/arcball/TransControl.hh
+END
+BallMath.cc
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/arcball/BallMath.cc
+END
+Arcball.hh
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/topmod/!svn/ver/7/topmod_gui/include/arcball/Arcball.hh
+END

@@ -1,0 +1,8 @@
+#CONFIG += c++17 Unfortunately not supported with G++ compiler
+CONFIG += c++14
+QMAKE_CXXFLAGS_RELEASE -= -O2
+QMAKE_CXXFLAGS_RELEASE += -O3
+QMAKE_LFLAGS_RELEASE -= -O1
+#CONFIG += warn_on
+#DESTDIR = BUILD
+#DEFINES += QT_DEPRECATED_WARNINGS

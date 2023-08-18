@@ -1,0 +1,12 @@
+CREATE ..\..\lib\libdlflaux.a
+ADDMOD debug\DLFLCast.o
+ADDMOD debug\DLFLConnect.o
+ADDMOD debug\DLFLConvexHull.o
+ADDMOD debug\DLFLCrust.o
+ADDMOD debug\DLFLDual.o
+ADDMOD debug\DLFLExtrude.o
+ADDMOD debug\DLFLMeshSmooth.o
+ADDMOD debug\DLFLMultiConnect.o
+ADDMOD debug\DLFLSculpting.o
+ADDMOD debug\DLFLSubdiv.o
+SAVE

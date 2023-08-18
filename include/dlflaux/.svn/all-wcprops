@@ -1,0 +1,149 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux
+END
+DLFLConnect.cc
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLConnect.cc
+END
+DLFLExtrude.hh
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLExtrude.hh
+END
+DLFLCast.cc
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLCast.cc
+END
+DLFLSubdiv.cc
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLSubdiv.cc
+END
+DLFLDual.hh
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLDual.hh
+END
+DLFLMeshSmooth.hh
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLMeshSmooth.hh
+END
+DLFLCrust.cc
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLCrust.cc
+END
+DLFLConvexHull.hh
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLConvexHull.hh
+END
+DLFLConnect.hh
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLConnect.hh
+END
+DLFLMultiConnect.cc
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLMultiConnect.cc
+END
+DLFLCast.hh
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLCast.hh
+END
+DLFLSubdiv.hh
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLSubdiv.hh
+END
+DLFLSculpting.cc
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLSculpting.cc
+END
+dlflaux.pro
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/dlflaux.pro
+END
+object_script.libdlflaux.Release
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/object_script.libdlflaux.Release
+END
+DLFLCrust.hh
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLCrust.hh
+END
+DLFLMultiConnect.hh
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLMultiConnect.hh
+END
+object_script.libdlflaux.Debug
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/object_script.libdlflaux.Debug
+END
+DLFLExtrude.cc
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLExtrude.cc
+END
+DLFLSculpting.hh
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLSculpting.hh
+END
+DLFLDual.cc
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLDual.cc
+END
+DLFLMeshSmooth.cc
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLMeshSmooth.cc
+END
+DLFLConvexHull.cc
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/DLFLConvexHull.cc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/topmod/!svn/ver/7/topmod_gui/include/dlflaux/Makefile
+END

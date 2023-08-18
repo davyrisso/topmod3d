@@ -1,0 +1,191 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse
+END
+verse_common.cc
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/verse_common.cc
+END
+TIF_space.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TIF_space.h
+END
+verse_mesh.cc
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/verse_mesh.cc
+END
+TLI_editVert.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TLI_editVert.h
+END
+DNA_mesh_types.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/DNA_mesh_types.h
+END
+TKE_global.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TKE_global.h
+END
+verse_object.cc
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/verse_object.cc
+END
+util.cc
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/util.cc
+END
+DNA_object_types.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/DNA_object_types.h
+END
+verse_object_node.cc
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/verse_object_node.cc
+END
+DNA_ID.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/DNA_ID.h
+END
+TKE_utildefines.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TKE_utildefines.h
+END
+TKE_depsgraph.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TKE_depsgraph.h
+END
+MEM_guardedalloc.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/MEM_guardedalloc.h
+END
+verse_session.cc
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/verse_session.cc
+END
+verse_node.cc
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/verse_node.cc
+END
+TLI_dynamiclist.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TLI_dynamiclist.h
+END
+DNA_listBase.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/DNA_listBase.h
+END
+DNA_meshdata_types.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/DNA_meshdata_types.h
+END
+TKE_mesh.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TKE_mesh.h
+END
+TLI_toplib.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TLI_toplib.h
+END
+verse_geometry_node.cc
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/verse_geometry_node.cc
+END
+TIF_editmesh.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TIF_editmesh.h
+END
+mydevice.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/mydevice.h
+END
+TKE_object.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TKE_object.h
+END
+TLI_arithb.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TLI_arithb.h
+END
+mallocn.cc
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/mallocn.cc
+END
+TLI_util.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TLI_util.h
+END
+TIF_verse.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TIF_verse.h
+END
+TKE_verse.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/TKE_verse.h
+END
+DNA_scriptlink_types.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/topmod/!svn/ver/7/topmod_gui/include/verse/DNA_scriptlink_types.h
+END

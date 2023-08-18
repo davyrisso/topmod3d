@@ -1,0 +1,12 @@
+CREATE ../../lib/libdlflaux.a
+ADDMOD release/DLFLCast.o
+ADDMOD release/DLFLConnect.o
+ADDMOD release/DLFLConvexHull.o
+ADDMOD release/DLFLCrust.o
+ADDMOD release/DLFLDual.o
+ADDMOD release/DLFLExtrude.o
+ADDMOD release/DLFLMeshSmooth.o
+ADDMOD release/DLFLMultiConnect.o
+ADDMOD release/DLFLSculpting.o
+ADDMOD release/DLFLSubdiv.o
+SAVE

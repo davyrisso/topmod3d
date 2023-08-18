@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat
+END
+Quaternion.hh
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Quaternion.hh
+END
+Vector2d.hh
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Vector2d.hh
+END
+Vector.cc
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Vector.cc
+END
+Matrix3x3.cc
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Matrix3x3.cc
+END
+Vector3d.hh
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Vector3d.hh
+END
+Vector4d.hh
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Vector4d.hh
+END
+Matrix4x4.cc
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Matrix4x4.cc
+END
+Vector.hh
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Vector.hh
+END
+Matrix3x3.hh
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Matrix3x3.hh
+END
+Matrix4x4.hh
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Matrix4x4.hh
+END
+Vector2d.cc
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Vector2d.cc
+END
+Vector3d.cc
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Vector3d.cc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Makefile
+END
+vecmat.pro
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/vecmat.pro
+END
+Vector4d.cc
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/topmod/!svn/ver/7/topmod_gui/include/vecmat/Vector4d.cc
+END

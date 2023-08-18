@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/topmod/!svn/ver/7/topmod_gui/include/Light
+END
+PointLight.hh
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/topmod/!svn/ver/7/topmod_gui/include/Light/PointLight.hh
+END
+AmbientLight.hh
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/topmod/!svn/ver/7/topmod_gui/include/Light/AmbientLight.hh
+END
+Light.hh
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/topmod/!svn/ver/7/topmod_gui/include/Light/Light.hh
+END
+SpotLight.hh
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/topmod/!svn/ver/7/topmod_gui/include/Light/SpotLight.hh
+END

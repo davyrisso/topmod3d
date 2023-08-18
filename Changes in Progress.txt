@@ -1,0 +1,64 @@
+camera.h/cpp - only HandleMouseEvent() might require change - Done
+    PerspectiveDisplay() - OpenGL calls
+    HandleMouseEvent() - OpenGl, FLTK; both calls are included
+
+GL_Window.h/cpp - init() and handle() may need changes, rest dont need - Done
+    init() - includes both OpenGL and few glew related calls
+    setShaders() - Only OpenGL calls
+    setTexture() - Only OpenGL calls
+    draw() - Only OpenGL calls
+    handle() - Uses FLTK functions, calls other member functions which render using OpenGL
+
+glErrorUtil.h/cpp - No changes.
+    CheckErrorsGL()- Uses glew header file
+
+GLSL.h/cpp - No changes.
+    printOglError()- Uses glew header file
+    printShaderInfoLog()- Uses glew header file
+    printProgramInfoLog()- Uses glew header file
+
+loadImage.h/cpp - Done.
+    loadImage() - Uses FLTK for loading images. Needs the change, probably using QImage.
+
+WeavingObject.h/cpp - Probably doesn't require modifiction, reconfirm it.
+    DrawBaseMesh() - Only OpenGL commands
+    DrawBezierPiece() - Only OpenGL commands
+    DrawControlPolygon() - Only OpenGL commands
+    DrawCylinder() - Only OpenGL commands
+    DrawB_SplinePiece() - Only OpenGL commands
+    YarnTrace() - Only calls to above fucntions commands, no explicit OpenGL calls
+
+main.cxx
+    timeout_cb() - OpenGl, FLTK; both calls are included
+    cb_Select() - glWindow class member calls
+    cb_Texture() - glWindow class member calls
+    cb_Environment() - glWindow class member calls
+    cb_6() - FLTK calls
+    cb_Displace() - glWindow class member calls
+    cb_Samples() - glWindow class member calls
+    cb_Width() - glWindow class member calls
+    cb_Curvature() - glWindow class member calls
+    cb_Bezier() - glWindow class member calls
+    cb_control() - glWindow class member calls
+    cb_Cylinder() - glWindow class member calls
+    cb_B() - glWindow class member calls
+    cb_center() - glWindow class member calls
+    cb_Background() - glWindow class member calls
+    cb_Base() - glWindow class member calls
+    cb_width() - glWindow class member calls
+    cb_write() - glWindow class member calls
+    cb_flatten() - glWindow class member calls
+    main() -  - glWindow class member calls; FLTK calls;
+
+Have include Glew library availability after changes are done.
+Integrity changes to combine things smoothly, this might take long time.
+
+
+WHILE COMPILING THE SAME CODE IN LINUX, CUSTOMIZE
+.PRO FILE FOR BOTH WINDOWS & LINUX COMPILATION  -  DONE
+
+what is the function of valid fucntion call in draw function of
+glWindow - is it context related  -  DONE
+
+______________  
+______________
