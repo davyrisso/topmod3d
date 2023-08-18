@@ -24,7 +24,9 @@ QMAKE_CXXFLAGS += -fpermissive
 
 
 CONFIG -=  WITH_PYTHON WITH_SPACENAV WITH_VERSE
-unix: LIBS += -lGLU
+linux {
+   LIBS += -lGLU
+}
 
 # to include the popup command line interface leave the following line uncommented
 DEFINES *= QCOMPLETER

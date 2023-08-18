@@ -18,11 +18,12 @@ Build steps:
  2. Clone this repo:
     - `$ git clone git@github.com:davyrisso/topmod3d.git`
     - `$ cd topmod3d`
- 2. `$ qmake -makefile`
- 3. `$ make`
+ 3. Build:
+    - `$ qmake -makefile`
+    - `$ make`
  4. Launch `topmod.app`
 
- Alternatively, use the open source Qt Creator bundled in Qt 5.13.
+ Alternatively, use the open source Qt Creator bundled in Qt 5.13 and open `TopMod.pro`.
 
  
  ### Linux
@@ -48,3 +49,5 @@ Build steps:
    4. Build:
       - `$ qmake -makefile`
       - `$ make`
+
+ Alternatively, use the open source Qt Creator bundled in Qt 5.13 and open `TopMod.pro`.
