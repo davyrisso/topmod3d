@@ -24,8 +24,7 @@ QMAKE_CXXFLAGS += -fpermissive
 
 
 CONFIG -=  WITH_PYTHON WITH_SPACENAV WITH_VERSE
-# Note: The line below prevents building on MacOSX (library not found: -lglu32).
-#LIBS +=  -lglu32 -lopengl32
+unix: LIBS += -lGLU
 
 # to include the popup command line interface leave the following line uncommented
 DEFINES *= QCOMPLETER
