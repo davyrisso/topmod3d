@@ -1,7 +1,7 @@
 /**
  * blenlib/BLI_listBase.h    mar 2001 Nzc
  *
- * $Id$ 
+ * $Id$
  *
  * ***** BEGIN GPL/BL DUAL LICENSE BLOCK *****
  *
@@ -43,15 +43,13 @@
 extern "C" {
 #endif
 
-typedef struct Link
-{
-	struct Link *next,*prev;
+typedef struct Link {
+  struct Link *next, *prev;
 } Link;
 
 /* never change the size of this! genfile.c detects pointerlen with it */
-typedef struct ListBase 
-{
-	void *first, *last;
+typedef struct ListBase {
+  void *first, *last;
 } ListBase;
 
 /* 8 byte alignment! */
@@ -61,4 +59,3 @@ typedef struct ListBase
 #endif
 
 #endif
-

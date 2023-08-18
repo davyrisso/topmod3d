@@ -1,30 +1,30 @@
 /*
-*
-* ***** BEGIN GPL LICENSE BLOCK *****
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License
-* as published by the Free Software Foundation; either version 2
-* of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software  Foundation,
-* Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*
-* The Original Code is Copyright (C) 2005 by xxxxxxxxxxxxxx
-* All rights reserved.
-*
-* The Original Code is: all of this file.
-*
-* Contributor(s): none yet.
-*
-* ***** END GPL LICENSE BLOCK *****
-*/
+ *
+ * ***** BEGIN GPL LICENSE BLOCK *****
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software  Foundation,
+ * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * The Original Code is Copyright (C) 2005 by xxxxxxxxxxxxxx
+ * All rights reserved.
+ *
+ * The Original Code is: all of this file.
+ *
+ * Contributor(s): none yet.
+ *
+ * ***** END GPL LICENSE BLOCK *****
+ */
 
 /* $Id: PointLight.hh,v 1.1 2006/09/04 19:22:53 stuart Exp $ */
 
@@ -38,97 +38,82 @@
 #include "Light.hh"
 
 class PointLight;
-typedef PointLight * PointLightPtr;
+typedef PointLight *PointLightPtr;
 
-class PointLight : public Light
-{
-  public :
+class PointLight : public Light {
+public:
+  // Default constructor
+  PointLight() : Light() {}
 
-        // Default constructor
-     PointLight()
-       : Light()
-       {}
+  // 1 argument constructor
+  PointLight(const Vector3d pos) : Light(pos) {}
 
-        // 1 argument constructor
-     PointLight(const Vector3d pos)
-       : Light(pos)
-       {}
+  // Copy constructor
+  PointLight(const PointLight &pl) : Light(pl) {}
 
-        // Copy constructor
-     PointLight(const PointLight& pl)
-       : Light(pl)
-       {}
+  // Destructor
+  ~PointLight() {}
 
-        // Destructor
-     ~PointLight()
-       {}
+  // Assignment operator
+  PointLight &operator=(const PointLight &pl) {
+    Light ::operator=(pl);
+    return (*this);
+  }
 
-        // Assignment operator
-     PointLight& operator = (const PointLight& pl)
-       {
-         Light :: operator = (pl);
-         return (*this);
-       }
+  // Make a copy
+  virtual BaseObjectPtr copy(void) const {
+    PointLightPtr newpl = new PointLight(*this);
+    return newpl;
+  }
 
-        // Make a copy
-     virtual BaseObjectPtr copy(void) const
-       {
-         PointLightPtr newpl = new PointLight(*this);
-         return newpl;
-       }
+  // Type of light
+  virtual LightType type(void) const { return PtLight; }
 
-        // Type of light
-     virtual LightType type(void) const
-       {
-         return PtLight;
-       }
+  // Does this light illuminate given point? PointLight always does
+  virtual bool illuminates(const Vector3d &) const { return true; }
 
-        // Does this light illuminate given point? PointLight always does
-     virtual bool illuminates(const Vector3d&) const
-       {
-         return true;
-       }
-     
-        // Compute the cosine factor for given point/normal
-     virtual double cosfactor(const Vector3d& p, const Vector3d& n) const
-       {
-         Vector3d vec(position-p); normalize(vec);
-         Vector3d normal(n); normalize(normal);
-         double cf = sqr((1.0 + vec*normal)/2.0);
+  // Compute the cosine factor for given point/normal
+  virtual double cosfactor(const Vector3d &p, const Vector3d &n) const {
+    Vector3d vec(position - p);
+    normalize(vec);
+    Vector3d normal(n);
+    normalize(normal);
+    double cf = sqr((1.0 + vec * normal) / 2.0);
 
-         return cf;
-       }
+    return cf;
+  }
 
-        // Illuminate a given point with a given normal using this light and return color
-     virtual RGBColor illuminate(const Vector3d& p, const Vector3d& n) const
-       {
-         if ( state == false ) return RGBColor(0);
+  // Illuminate a given point with a given normal using this light and return
+  // color
+  virtual RGBColor illuminate(const Vector3d &p, const Vector3d &n) const {
+    if (state == false)
+      return RGBColor(0);
 
-            // Since we don't have eye position do only diffuse computation
-         double cf = cosfactor(p,n);
-         RGBColor color;
-         
-         color = (warmcolor*cf + coolcolor*(1.0-cf))*intensity;
-         return color;
-       }
+    // Since we don't have eye position do only diffuse computation
+    double cf = cosfactor(p, n);
+    RGBColor color;
 
-        // Same as above but with specular lighting also
-     virtual RGBColor illuminate(const Vector3d& p, const Vector3d& n, const Vector3d& e) const
-       {
-		// float spec=0;
-		// Vector3d V(e); // normalize(V);
-		// Vector3d L(position-p); normalize(L);
-		// Vector3d R(L - 2.0f * (L*N)*N);
-		// float dot = V*R;
-		// if (dot > 0) spec = powf( dot, 20 );
-         if ( state == false ) return RGBColor(0);
-            // For now do only diffuse lighting
-         return illuminate(p,n);
-       }
+    color = (warmcolor * cf + coolcolor * (1.0 - cf)) * intensity;
+    return color;
+  }
+
+  // Same as above but with specular lighting also
+  virtual RGBColor illuminate(const Vector3d &p, const Vector3d &n,
+                              const Vector3d &e) const {
+    // float spec=0;
+    // Vector3d V(e); // normalize(V);
+    // Vector3d L(position-p); normalize(L);
+    // Vector3d R(L - 2.0f * (L*N)*N);
+    // float dot = V*R;
+    // if (dot > 0) spec = powf( dot, 20 );
+    if (state == false)
+      return RGBColor(0);
+    // For now do only diffuse lighting
+    return illuminate(p, n);
+  }
 };
 
 #endif /* #ifndef _POINT_LIGHT_HH_ */
-
 
 /*
   $Log: PointLight.hh,v $

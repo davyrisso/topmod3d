@@ -1,30 +1,30 @@
 /*
-*
-* ***** BEGIN GPL LICENSE BLOCK *****
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License
-* as published by the Free Software Foundation; either version 2
-* of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software  Foundation,
-* Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*
-* The Original Code is Copyright (C) 2005 by xxxxxxxxxxxxxx
-* All rights reserved.
-*
-* The Original Code is: all of this file.
-*
-* Contributor(s): none yet.
-*
-* ***** END GPL LICENSE BLOCK *****
-*/
+ *
+ * ***** BEGIN GPL LICENSE BLOCK *****
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software  Foundation,
+ * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * The Original Code is Copyright (C) 2005 by xxxxxxxxxxxxxx
+ * All rights reserved.
+ *
+ * The Original Code is: all of this file.
+ *
+ * Contributor(s): none yet.
+ *
+ * ***** END GPL LICENSE BLOCK *****
+ */
 
 // $Id: StreamIO.hh,v 1.9 2003/10/22 02:10:26 vinod Exp $
 
@@ -35,132 +35,123 @@
 // Miscellaneous functions for operating on IO streams in C++
 
 #ifndef __GNUG__
-#include <iostream.h>
-#include <iomanip.h>
-#include <ctype.h>
 #include <bool.h>
-#else
-#include <iostream>
-#include <iomanip>
 #include <ctype.h>
+#include <iomanip.h>
+#include <iostream.h>
+#else
+#include <ctype.h>
+#include <iomanip>
+#include <iostream>
 
 using namespace std;
 
 #endif
 
-
-inline void removeWhiteSpace(istream& i)
-{
+inline void removeWhiteSpace(istream &i) {
   char c;
 
-  while ( i )
-     {
-       i.get(c);
-       if ( c != ' ' && c != '\t' && c != '\n' )
-          {
-            i.putback(c);
-            break;
-          }
-     }
+  while (i) {
+    i.get(c);
+    if (c != ' ' && c != '\t' && c != '\n') {
+      i.putback(c);
+      break;
+    }
+  }
 }
 
-inline void removeSpaces(istream& i)
-{
+inline void removeSpaces(istream &i) {
   char c;
 
-  while ( i )
-     {
-       i.get(c);
-       if ( c != ' ' )
-          {
-            i.putback(c);
-            break;
-          }
-     }
+  while (i) {
+    i.get(c);
+    if (c != ' ') {
+      i.putback(c);
+      break;
+    }
+  }
 }
 
-inline void removeSpacesAndTabs(istream& i)
-{
+inline void removeSpacesAndTabs(istream &i) {
   char c;
 
-  while ( i )
-     {
-       i.get(c);
-       if ( c != ' ' && c != '\t' )
-          {
-            i.putback(c);
-            break;
-          }
-     }
+  while (i) {
+    i.get(c);
+    if (c != ' ' && c != '\t') {
+      i.putback(c);
+      break;
+    }
+  }
 }
 
-inline bool readTillEOL(istream& i)
-{
-     // Read till newline character occurs or EOF is reached
-     // newline character is also read from the stream
-     // Returns false if EOF is reached before EOL, true otherwise
+inline bool readTillEOL(istream &i) {
+  // Read till newline character occurs or EOF is reached
+  // newline character is also read from the stream
+  // Returns false if EOF is reached before EOL, true otherwise
   char c;
 
   i.get(c);
-  while ( i && c != '\n' )
-     i.get(c);
-  if ( c == '\n' ) return true;
+  while (i && c != '\n')
+    i.get(c);
+  if (c == '\n')
+    return true;
   return false;
 }
 
-inline bool readTill(istream& i, char c)
-{
-     // Read till specified character occurs or EOL/EOF is reached
-     // Specified character is left in the stream
-     // If EOF/EOL occurs before c, returns false, true otherwise
+inline bool readTill(istream &i, char c) {
+  // Read till specified character occurs or EOL/EOF is reached
+  // Specified character is left in the stream
+  // If EOF/EOL occurs before c, returns false, true otherwise
   char ic = i.peek();
-  while ( i && ic != c && ic != '\n' )
-     {
-       i.get(ic); ic = i.peek();
-     }
-  if ( ic == c ) return true;
+  while (i && ic != c && ic != '\n') {
+    i.get(ic);
+    ic = i.peek();
+  }
+  if (ic == c)
+    return true;
   return false;
 }
 
-inline bool readTillNumeric(istream& i)
-{
-     // Read till a numeric digit (0-9) occurs or EOL/EOF is reached
-     // If EOL/EOF is reached before a digit occurs, returns false
-     // and leaves the EOL/EOF character in i. If a digit is reached
-     // returns true and leaves the digit in i
+inline bool readTillNumeric(istream &i) {
+  // Read till a numeric digit (0-9) occurs or EOL/EOF is reached
+  // If EOL/EOF is reached before a digit occurs, returns false
+  // and leaves the EOL/EOF character in i. If a digit is reached
+  // returns true and leaves the digit in i
   char ic = i.peek();
-  while ( i && !isdigit(ic) && ic != '\n' )
-     {
-       i.get(ic); ic = i.peek();
-     }
-  if ( isdigit(ic) ) return true;
+  while (i && !isdigit(ic) && ic != '\n') {
+    i.get(ic);
+    ic = i.peek();
+  }
+  if (isdigit(ic))
+    return true;
   return false;
 }
 
-inline bool readTillDigit(istream& i)
-{
-     // Read till a digit or plus/minus sign occurs or EOL/EOF is reached
-     // If EOL/EOF is reached before a digit occurs, returns false
-     // and leaves the EOL/EOF character in i. If a digit is reached
-     // returns true and leaves the digit in i
+inline bool readTillDigit(istream &i) {
+  // Read till a digit or plus/minus sign occurs or EOL/EOF is reached
+  // If EOL/EOF is reached before a digit occurs, returns false
+  // and leaves the EOL/EOF character in i. If a digit is reached
+  // returns true and leaves the digit in i
   char ic = i.peek();
-  while ( i && !isdigit(ic) && ic != '+' && ic != '-' && ic != '\n' )
-     {
-       i.get(ic); ic = i.peek();
-     }
-  if ( isdigit(ic) || ic == '+' || ic == '-' ) return true;
+  while (i && !isdigit(ic) && ic != '+' && ic != '-' && ic != '\n') {
+    i.get(ic);
+    ic = i.peek();
+  }
+  if (isdigit(ic) || ic == '+' || ic == '-')
+    return true;
   return false;
 }
 
-inline bool readTillFloat(istream& i)
-{
-     // Same as previous subroutine, except that '.' is also allowed
+inline bool readTillFloat(istream &i) {
+  // Same as previous subroutine, except that '.' is also allowed
   char ic = i.peek();
-  while ( i && !isdigit(ic) && ic != '+' && ic != '-' && ic != '.' && ic != '\n' )
-     {
-       i.get(ic); ic = i.peek();
-     }
-  if ( isdigit(ic) || ic == '+' || ic == '-' || ic == '.' ) return true;
+  while (i && !isdigit(ic) && ic != '+' && ic != '-' && ic != '.' &&
+         ic != '\n') {
+    i.get(ic);
+    ic = i.peek();
+  }
+  if (isdigit(ic) || ic == '+' || ic == '-' || ic == '.')
+    return true;
   return false;
 }
 
@@ -168,7 +159,8 @@ inline bool readTillFloat(istream& i)
 
 // $Log: StreamIO.hh,v $
 // Revision 1.9  2003/10/22 02:10:26  vinod
-// Moved using namespace std line into ifndef so it is included only for GNU compilers
+// Moved using namespace std line into ifndef so it is included only for GNU
+// compilers
 //
 // Revision 1.8  2003/10/22 01:22:07  vinod
 // Added namespace specification
@@ -199,7 +191,8 @@ inline bool readTillFloat(istream& i)
 // Added readTillEOL
 //
 // Revision 1.3  1999/02/13 07:55:56  vinod
-// Added 2 new functions, changed removeWhiteSpace to remove newlines and tabs also
+// Added 2 new functions, changed removeWhiteSpace to remove newlines and tabs
+// also
 //
 // Revision 1.2  1999/02/11 07:20:39  vinod
 // Made functions actually inline

@@ -1,6 +1,3 @@
 #include "DLFLCurvatureConnect.hh"
 
-DLFLCurvatureConnect::DLFLCurvatureConnect()
-{
-
-}
+DLFLCurvatureConnect::DLFLCurvatureConnect() {}

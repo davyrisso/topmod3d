@@ -72,12 +72,14 @@ void expand_local_object(struct Object *ob);
 void make_local_object(struct Object *ob);
 void set_mblur_offs(int blur);
 void disable_speed_curve(int val);
-float bsystem_time(struct Object *ob, struct Object *par, float cfra, float ofs);
+float bsystem_time(struct Object *ob, struct Object *par, float cfra,
+                   float ofs);
 void object_to_mat3(struct Object *ob, float mat[][3]);
 void object_to_mat4(struct Object *ob, float mat[][4]);
 void ob_parcurve(struct Object *ob, struct Object *par, float mat[][4]);
 void ob_parlimb(struct Object *ob, struct Object *par, float mat[][4]);
-void ob_parbone(struct Object *ob, struct Object *par, float mat[][4]);	/* __NLA */
+void ob_parbone(struct Object *ob, struct Object *par,
+                float mat[][4]); /* __NLA */
 void give_parvert(struct Object *par, int nr, float *vec);
 void ob_parvert3(struct Object *ob, struct Object *par, float mat[][4]);
 void set_no_parent_ipo(int val);
@@ -94,8 +96,9 @@ void what_does_parent(struct Object *ob);
 struct BoundBox *unit_boundbox(void);
 void boundbox_set_from_min_max(struct BoundBox *bb, float min[3], float max[3]);
 void minmax_object(struct Object *ob, float *min, float *max);
-void solve_tracking (struct Object *ob, float targetmat[][4]);
-void solve_constraints (struct Object *ob, short obtype, void *obdata, float ctime);
+void solve_tracking(struct Object *ob, float targetmat[][4]);
+void solve_constraints(struct Object *ob, short obtype, void *obdata,
+                       float ctime);
 
 void object_handle_update(struct Object *ob);
 
@@ -104,4 +107,3 @@ void object_handle_update(struct Object *ob);
 #endif
 
 #endif
-

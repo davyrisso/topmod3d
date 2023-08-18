@@ -1,30 +1,30 @@
 /*
-*
-* ***** BEGIN GPL LICENSE BLOCK *****
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License
-* as published by the Free Software Foundation; either version 2
-* of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software  Foundation,
-* Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*
-* The Original Code is Copyright (C) 2005 by xxxxxxxxxxxxxx
-* All rights reserved.
-*
-* The Original Code is: all of this file.
-*
-* Contributor(s): none yet.
-*
-* ***** END GPL LICENSE BLOCK *****
-*/
+ *
+ * ***** BEGIN GPL LICENSE BLOCK *****
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software  Foundation,
+ * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * The Original Code is Copyright (C) 2005 by xxxxxxxxxxxxxx
+ * All rights reserved.
+ *
+ * The Original Code is: all of this file.
+ *
+ * Contributor(s): none yet.
+ *
+ * ***** END GPL LICENSE BLOCK *****
+ */
 
 // $Id: BaseObject.hh,v 1.5 2002/10/25 15:59:19 vinod Exp $
 
@@ -50,120 +50,94 @@
 #include <stdlib.h>
 
 class BaseObject;
-typedef BaseObject * BaseObjectPtr;
+typedef BaseObject *BaseObjectPtr;
 
-class BaseObject
-{
-  protected :
+class BaseObject {
+protected:
+  // Default constructor - protected to prevent instantiation
+  BaseObject() {
+    // Nothing to do
+  }
 
-        // Default constructor - protected to prevent instantiation
-     BaseObject()
-       {
-            // Nothing to do
-       }
+  // Copy constructor - protected to prevent instantiation
+  BaseObject(const BaseObject &) {
+    // Nothing to do
+  }
 
-        // Copy constructor - protected to prevent instantiation
-     BaseObject(const BaseObject&)
-       {
-            // Nothing to do
-       }
-     
-  public :
+public:
+  // Assignment operator
+  BaseObject &operator=(const BaseObject &) {
+    // Nothing to do
 
-        // Assignment operator
-     BaseObject& operator = (const BaseObject&)
-       {
-            // Nothing to do
+    return *this;
+  }
 
-         return *this;
-       }
+  // Destructor
+  virtual ~BaseObject() {
+    // Nothing to do
+  }
 
-        // Destructor
-     virtual ~BaseObject()
-       {
-            // Nothing to do
-       }
+  // Derived class should give a meaningful implementation
+  // for the following functions.
+  // Classes such as List which use BaseObject pointers
+  // will use these functions, for memory management
+  // These functions may be made pure virtual later
 
-        // Derived class should give a meaningful implementation
-        // for the following functions.
-        // Classes such as List which use BaseObject pointers
-        // will use these functions, for memory management
-        // These functions may be made pure virtual later
-     
-        // Make a copy of the BaseObject and return a pointer to the new one
-     virtual BaseObjectPtr copy(void) const = 0;
+  // Make a copy of the BaseObject and return a pointer to the new one
+  virtual BaseObjectPtr copy(void) const = 0;
 };
 
 // A reference class for use in container classes
 // Based on http://www.cs.southwestern.edu/~owensb/Algo/STL/ref2.html
 
-class BaseObjectReference
-{
-  protected :
+class BaseObjectReference {
+protected:
+  BaseObjectPtr referent; // What does this object refer to?
+  bool owner;             // Does this object owns the referent?
 
-     BaseObjectPtr referent;                           // What does this object refer to?
-     bool          owner;                              // Does this object owns the referent?
+public:
+  //--- Constructors ---//
 
-  public :
+  BaseObjectReference() : referent(NULL), owner(true) {}
 
-        //--- Constructors ---//
+  BaseObjectReference(const BaseObject &obj)
+      : referent(obj.copy()), owner(true) {}
 
-     BaseObjectReference()
-       : referent(NULL), owner(true)
-       {}
+  BaseObjectReference(BaseObjectPtr obj) : referent(obj), owner(false) {}
 
-     BaseObjectReference(const BaseObject& obj)
-       : referent(obj.copy()), owner(true)
-       {}
+  BaseObjectReference(const BaseObjectReference &ref)
+      : referent(ref.referent), owner(ref.owner) {
+    if (owner && ref.referent)
+      referent = ref.referent->copy();
+  }
 
-     BaseObjectReference(BaseObjectPtr obj)
-       : referent(obj), owner(false)
-       {}
+  //--- Destructor ---//
 
-     BaseObjectReference(const BaseObjectReference& ref)
-       : referent(ref.referent), owner(ref.owner)
-       {
-         if ( owner && ref.referent ) referent = ref.referent->copy();
-       }
+  ~BaseObjectReference() {
+    if (owner)
+      delete referent;
+  }
 
-        //--- Destructor ---//
+  //--- Assignment operator ---//
 
-     ~BaseObjectReference()
-       {
-         if ( owner ) delete referent;
-       }
+  BaseObjectReference &operator=(const BaseObjectReference &ref) {
+    if (owner)
+      delete referent;
+    owner = true;
+    if (ref.referent)
+      referent = ref.referent->copy();
+    return (*this);
+  }
 
-        //--- Assignment operator ---//
+  //--- Operators ---//
 
-     BaseObjectReference& operator = (const BaseObjectReference& ref)
-       {
-         if ( owner ) delete referent;
-         owner = true;
-         if ( ref.referent ) referent = ref.referent->copy();
-         return (*this);
-       }
+  BaseObjectPtr operator->() const { return referent; }
 
-        //--- Operators ---//
+  operator BaseObject &() const { return *referent; }
 
-     BaseObjectPtr operator -> () const
-       {
-         return referent;
-       }
+  operator BaseObject *() const { return referent; }
 
-     operator BaseObject& () const
-       {
-         return *referent;
-       }
-
-     operator BaseObject * () const
-       {
-         return referent;
-       }
-
-     BaseObject& operator * () const
-       {
-         return *referent;
-       }
+  BaseObject &operator*() const { return *referent; }
 };
 
 #endif // #ifndef _OBJECT_HH_

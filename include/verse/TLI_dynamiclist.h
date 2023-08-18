@@ -37,22 +37,22 @@
 struct ListBase;
 
 /*
- * Access array using realloc 
+ * Access array using realloc
  */
-typedef struct DynamicArray{
-	unsigned int count;		/* count of items in list */
-	unsigned int max_item_index;	/* max available index */
-	unsigned int last_item_index;	/* max used index */
-	void **items;			/* dynamicaly allocated array of pointers
-					   pointing at items in list */
+typedef struct DynamicArray {
+  unsigned int count;           /* count of items in list */
+  unsigned int max_item_index;  /* max available index */
+  unsigned int last_item_index; /* max used index */
+  void **items;                 /* dynamicaly allocated array of pointers
+                                   pointing at items in list */
 } DynamicArray;
 
 /*
  * Two way dynamic list with access array
  */
 typedef struct DynamicList {
-	struct DynamicArray da;		/* access array */
-	struct ListBase lb;		/* two way linked dynamic list */
+  struct DynamicArray da; /* access array */
+  struct ListBase lb;     /* two way linked dynamic list */
 } DynamicList;
 
 #endif

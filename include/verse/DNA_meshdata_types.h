@@ -1,5 +1,5 @@
 /**
- * $Id$ 
+ * $Id$
  *
  * ***** BEGIN GPL/BL DUAL LICENSE BLOCK *****
  *
@@ -35,77 +35,78 @@
 struct Bone;
 
 typedef struct MFace {
-	unsigned int v1, v2, v3, v4;
-	char pad, mat_nr;
-	char edcode, flag;	/* we keep edcode, for conversion to edges draw flags in old files */
+  unsigned int v1, v2, v3, v4;
+  char pad, mat_nr;
+  char edcode, flag; /* we keep edcode, for conversion to edges draw flags in
+                        old files */
 } MFace;
 
 typedef struct MEdge {
-	unsigned int v1, v2;
-	char crease, pad;
-	short flag;
+  unsigned int v1, v2;
+  char crease, pad;
+  short flag;
 } MEdge;
 
 typedef struct MDeformWeight {
-	int				def_nr;
-	float			weight;
+  int def_nr;
+  float weight;
 } MDeformWeight;
 
 typedef struct MDeformVert {
-	struct MDeformWeight *dw;
-	int totweight;
-	int flag;	// flag only in use for weightpaint now
+  struct MDeformWeight *dw;
+  int totweight;
+  int flag; // flag only in use for weightpaint now
 } MDeformVert;
 
 typedef struct MVert {
-	float	co[3];
-	short	no[3];
-	char flag, mat_nr;
+  float co[3];
+  short no[3];
+  char flag, mat_nr;
 } MVert;
 
 typedef struct MCol {
-	char a, r, g, b;
+  char a, r, g, b;
 } MCol;
 
 typedef struct MSticky {
-	float co[2];
+  float co[2];
 } MSticky;
 
 /* mvert->flag (1=SELECT) */
-#define ME_SPHERETEST	2
-#define ME_SPHERETEMP	4
-#define ME_HIDE			16
-#define ME_VERT_STEPINDEX	(1<<7)
+#define ME_SPHERETEST 2
+#define ME_SPHERETEMP 4
+#define ME_HIDE 16
+#define ME_VERT_STEPINDEX (1 << 7)
 
 /* medge->flag (1=SELECT)*/
-#define ME_EDGEDRAW			(1<<1)
-#define ME_SEAM				(1<<2)
-#define ME_FGON				(1<<3)
-						// reserve 16 for ME_HIDE
-#define ME_EDGERENDER		(1<<5)
-#define ME_LOOSEEDGE		(1<<7)
-#define ME_EDGE_STEPINDEX	(1<<15)
+#define ME_EDGEDRAW (1 << 1)
+#define ME_SEAM (1 << 2)
+#define ME_FGON (1 << 3)
+// reserve 16 for ME_HIDE
+#define ME_EDGERENDER (1 << 5)
+#define ME_LOOSEEDGE (1 << 7)
+#define ME_EDGE_STEPINDEX (1 << 15)
 
 /* puno = vertexnormal (mface) */
-#define ME_FLIPV1		1
-#define ME_FLIPV2		2
-#define ME_FLIPV3		4
-#define ME_FLIPV4		8
-#define ME_PROJXY		16
-#define ME_PROJXZ		32
-#define ME_PROJYZ		64
+#define ME_FLIPV1 1
+#define ME_FLIPV2 2
+#define ME_FLIPV3 4
+#define ME_FLIPV4 8
+#define ME_PROJXY 16
+#define ME_PROJXZ 32
+#define ME_PROJYZ 64
 
 /* edcode (mface) */
-#define ME_V1V2			1
-#define ME_V2V3			2
-#define ME_V3V1			4
-#define ME_V3V4			4
-#define ME_V4V1			8
+#define ME_V1V2 1
+#define ME_V2V3 2
+#define ME_V3V1 4
+#define ME_V3V4 4
+#define ME_V4V1 8
 
 /* flag (mface) */
-#define ME_SMOOTH			1
-#define ME_FACE_SEL			2
-						/* flag ME_HIDE==16 is used here too */ 
-#define ME_FACE_STEPINDEX	(1<<7)
+#define ME_SMOOTH 1
+#define ME_FACE_SEL 2
+/* flag ME_HIDE==16 is used here too */
+#define ME_FACE_STEPINDEX (1 << 7)
 
 #endif

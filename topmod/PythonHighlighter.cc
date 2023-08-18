@@ -1,45 +1,71 @@
 /*
-*
-* ***** BEGIN GPL LICENSE BLOCK *****
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License
-* as published by the Free Software Foundation; either version 2
-* of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software  Foundation,
-* Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*
-* The Original Code is Copyright (C) 2005 by xxxxxxxxxxxxxx
-* All rights reserved.
-*
-* The Original Code is: all of this file.
-*
-* Contributor(s): none yet.
-*
-* ***** END GPL LICENSE BLOCK *****
-*
-* Short description of this file
-*
-* name of .hh file containing function prototypes
-*
-*/
+ *
+ * ***** BEGIN GPL LICENSE BLOCK *****
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software  Foundation,
+ * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * The Original Code is Copyright (C) 2005 by xxxxxxxxxxxxxx
+ * All rights reserved.
+ *
+ * The Original Code is: all of this file.
+ *
+ * Contributor(s): none yet.
+ *
+ * ***** END GPL LICENSE BLOCK *****
+ *
+ * Short description of this file
+ *
+ * name of .hh file containing function prototypes
+ *
+ */
 
 #include "PythonHighlighter.hh"
 
-PythonHighlighter::PythonHighlighter(QTextEdit *parent) 
-  : QSyntaxHighlighter(parent) {
-  pythonKeywords << "and" << "assert" << "break" << "class" << "continue" << "def"
-								 << "del" << "elif" << "else" << "except" << "exec" << "finally"
-								 << "for" << "from" << "global" << "if" << "import" << "in"
-								 << "is" << "lambda" << "not" << "or" << "pass" << "print" << "raise"
-								 << "return" << "try" << "while" << "yield" << "True" << "False";
+PythonHighlighter::PythonHighlighter(QTextEdit *parent)
+    : QSyntaxHighlighter(parent) {
+  pythonKeywords << "and"
+                 << "assert"
+                 << "break"
+                 << "class"
+                 << "continue"
+                 << "def"
+                 << "del"
+                 << "elif"
+                 << "else"
+                 << "except"
+                 << "exec"
+                 << "finally"
+                 << "for"
+                 << "from"
+                 << "global"
+                 << "if"
+                 << "import"
+                 << "in"
+                 << "is"
+                 << "lambda"
+                 << "not"
+                 << "or"
+                 << "pass"
+                 << "print"
+                 << "raise"
+                 << "return"
+                 << "try"
+                 << "while"
+                 << "yield"
+                 << "True"
+                 << "False";
 
   promptFormat.setForeground(QColor("greenyellow"));
   promptFormat.setFontWeight(QFont::Bold);
@@ -58,12 +84,10 @@ PythonHighlighter::PythonHighlighter(QTextEdit *parent)
 
   commentFormat.setForeground(QColor("orangered"));
   commentFormat.setFontItalic(true);
-  compilePattern( );
+  compilePattern();
 }
 
-PythonHighlighter::~PythonHighlighter( ) {  
-	
-}
+PythonHighlighter::~PythonHighlighter() {}
 
 void PythonHighlighter::compilePattern() {
   pythonPatterns.clear();
@@ -73,18 +97,21 @@ void PythonHighlighter::compilePattern() {
     pythonPatterns.push_back(QRegExp(delim + *lit + delim));
   }
 
-  stringPattern  = QRegExp("(\".*\")|'.*'");
+  stringPattern = QRegExp("(\".*\")|'.*'");
   functionPattern = QRegExp("\\b[A-Za-z0-9_]+(?=\\()");
-  tuplePattern = QRegExp("(\\((-?\\d+(\\.\\d*)?,[ ]*)+-?\\d+(\\.\\d*)?\\))|(\\[(-?\\d+(\\.\\d*)?,[ ]*)+-?\\d+(\\.\\d*)?\\])");
+  tuplePattern = QRegExp("(\\((-?\\d+(\\.\\d*)?,[ "
+                         "]*)+-?\\d+(\\.\\d*)?\\))|(\\[(-?\\d+(\\.\\d*)?,[ "
+                         "]*)+-?\\d+(\\.\\d*)?\\])");
   promptPattern = QRegExp("dlfl>");
   commentPattern = QRegExp("#.*");
 }
 
-void PythonHighlighter::highlightBlock(const QString& text) {
-  if (text.startsWith(">")) return;
+void PythonHighlighter::highlightBlock(const QString &text) {
+  if (text.startsWith(">"))
+    return;
 
-  for( int p = 0; p < pythonPatterns.size(); p++) {
-    const QRegExp& expression = pythonPatterns[p];
+  for (int p = 0; p < pythonPatterns.size(); p++) {
+    const QRegExp &expression = pythonPatterns[p];
     int index = text.indexOf(expression);
     while (index >= 0) {
       int length = expression.matchedLength();
@@ -121,7 +148,7 @@ void PythonHighlighter::highlightBlock(const QString& text) {
     index = text.indexOf(promptPattern, index + length);
   }
 
-	// Must be last to highlight correctly
+  // Must be last to highlight correctly
   index = text.indexOf(commentPattern);
   while (index >= 0) {
     int length = commentPattern.matchedLength();
@@ -129,4 +156,3 @@ void PythonHighlighter::highlightBlock(const QString& text) {
     index = text.indexOf(commentPattern, index + length);
   }
 }
-

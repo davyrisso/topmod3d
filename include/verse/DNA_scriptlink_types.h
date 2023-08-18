@@ -1,9 +1,9 @@
 /**
  * blenlib/DNA_object_types.h (mar-2001 nzc)
- *	
+ *
  * Scriptlink is hard-coded in object for some reason.
  *
- * $Id$ 
+ * $Id$
  *
  * ***** BEGIN GPL/BL DUAL LICENSE BLOCK *****
  *
@@ -43,19 +43,19 @@ extern "C" {
 struct ID;
 
 typedef struct ScriptLink {
-	struct ID **scripts;
-	short *flag;
-	
-	short actscript, totscript;
-	int pad;
+  struct ID **scripts;
+  short *flag;
+
+  short actscript, totscript;
+  int pad;
 } ScriptLink;
 
 /* **************** SCRIPTLINKS ********************* */
 
-#define SCRIPT_FRAMECHANGED	1
+#define SCRIPT_FRAMECHANGED 1
 #define SCRIPT_ONLOAD 2
-#define SCRIPT_REDRAW	4
-#define SCRIPT_ONSAVE	8
+#define SCRIPT_REDRAW 4
+#define SCRIPT_ONSAVE 8
 #define SCRIPT_RENDER 16
 /* POSTRENDER is not meant for the UI, it simply calls the
  * RENDER script links for clean-up actions */
@@ -69,7 +69,6 @@ typedef struct ScriptLink {
  */
 #define SPACEHANDLER_VIEW3D_EVENT 1
 #define SPACEHANDLER_VIEW3D_DRAW 2
-
 
 #ifdef __cplusplus
 }

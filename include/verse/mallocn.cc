@@ -36,9 +36,9 @@
  * Guarded memory allocation, and boundary-write detection.
  */
 
-#include <stdlib.h>
-#include <string.h>	/* memcpy */
 #include <stdarg.h>
+#include <stdlib.h>
+#include <string.h> /* memcpy */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -50,28 +50,27 @@
 /* Data definition                                                       */
 /* --------------------------------------------------------------------- */
 /* all memory chunks are put in linked lists */
-typedef struct localLink
-{
-	struct localLink *next,*prev;
+typedef struct localLink {
+  struct localLink *next, *prev;
 } localLink;
 
-typedef struct localListBase 
-{
-	void *first, *last;
+typedef struct localListBase {
+  void *first, *last;
 } localListBase;
 
 typedef struct MemHead {
-	int tag1;
-	int len;
-	struct MemHead *next,*prev;
-	char * name;
-	char * nextname;
-	/*  int level; */ /* historical, can be removed, but check alignment issues - zr */
-	int tag2;
+  int tag1;
+  int len;
+  struct MemHead *next, *prev;
+  char *name;
+  char *nextname;
+  /*  int level; */ /* historical, can be removed, but check alignment issues -
+                       zr */
+  int tag2;
 } MemHead;
 
 typedef struct MemTail {
-	int tag3, pad;
+  int tag3, pad;
 } MemTail;
 
 /* --------------------------------------------------------------------- */
@@ -88,10 +87,12 @@ static char *check_memlist(MemHead *memh);
 /* locally used defines                                                  */
 /* --------------------------------------------------------------------- */
 
-#if defined( __sgi) || defined (__sun) || defined (__sun__) || defined (__sparc) || defined (__sparc__) || defined (__PPC__) || defined (__APPLE__)
-#define MAKE_ID(a,b,c,d) ( (int)(a)<<24 | (int)(b)<<16 | (c)<<8 | (d) )
+#if defined(__sgi) || defined(__sun) || defined(__sun__) ||                    \
+    defined(__sparc) || defined(__sparc__) || defined(__PPC__) ||              \
+    defined(__APPLE__)
+#define MAKE_ID(a, b, c, d) ((int)(a) << 24 | (int)(b) << 16 | (c) << 8 | (d))
 #else
-#define MAKE_ID(a,b,c,d) ( (int)(d)<<24 | (int)(c)<<16 | (b)<<8 | (a) )
+#define MAKE_ID(a, b, c, d) ((int)(d) << 24 | (int)(c) << 16 | (b) << 8 | (a))
 #endif
 
 #define MEMTAG1 MAKE_ID('M', 'E', 'M', 'O')
@@ -99,15 +100,15 @@ static char *check_memlist(MemHead *memh);
 #define MEMTAG3 MAKE_ID('O', 'C', 'K', '!')
 #define MEMFREE MAKE_ID('F', 'R', 'E', 'E')
 
-#define MEMNEXT(x) ((MemHead *)(((char *) x) - ((char *) & (((MemHead *)0)->next))))
-	
+#define MEMNEXT(x)                                                             \
+  ((MemHead *)(((char *)x) - ((char *)&(((MemHead *)0)->next))))
+
 /* --------------------------------------------------------------------- */
 /* vars                                                                  */
 /* --------------------------------------------------------------------- */
-	
 
-int totblock= 0;
-int mem_in_use= 0;
+int totblock = 0;
+int mem_in_use = 0;
 
 static struct localListBase _membase;
 static struct localListBase *membase = &_membase;
@@ -125,343 +126,367 @@ static void (*error_callback)(char *) = NULL;
 #undef free
 #endif
 
-
 /* --------------------------------------------------------------------- */
 /* implementation                                                        */
 /* --------------------------------------------------------------------- */
 
-static void print_error(char *str, ...)
-{
-	char buf[1024];
-	va_list ap;
+static void print_error(char *str, ...) {
+  char buf[1024];
+  va_list ap;
 
-	va_start(ap, str);
-	vsprintf(buf, str, ap);
-	va_end(ap);
+  va_start(ap, str);
+  vsprintf(buf, str, ap);
+  va_end(ap);
 
-	if (error_callback) error_callback(buf);
+  if (error_callback)
+    error_callback(buf);
 }
 
-int MEM_check_memory_integrity()
-{
-	char* err_val = NULL;
-	MemHead* listend;
-	/* check_memlist starts from the front, and runs until it finds
-	 * the requested chunk. For this test, that's the last one. */
-	listend = (MemHead*)membase->last;
-	
-	err_val = check_memlist(listend);
+int MEM_check_memory_integrity() {
+  char *err_val = NULL;
+  MemHead *listend;
+  /* check_memlist starts from the front, and runs until it finds
+   * the requested chunk. For this test, that's the last one. */
+  listend = (MemHead *)membase->last;
 
-	return (int)err_val;
+  err_val = check_memlist(listend);
+
+  return (int)err_val;
 }
 
+void MEM_set_error_callback(void (*func)(char *)) { error_callback = func; }
 
-void MEM_set_error_callback(void (*func)(char *))
-{
-	error_callback = func;
+int MEM_allocN_len(void *vmemh) {
+  if (vmemh) {
+    MemHead *memh = (MemHead *)vmemh;
+
+    memh--;
+    return memh->len;
+  } else
+    return 0;
 }
 
+void *MEM_dupallocN(void *vmemh) {
+  void *newp = NULL;
 
-int MEM_allocN_len(void *vmemh)
-{
-	if (vmemh) {
-		MemHead *memh= (MemHead*)vmemh;
-	
-		memh--;
-		return memh->len;
-	} else
-		return 0;
+  if (vmemh) {
+    MemHead *memh = (MemHead *)vmemh;
+    memh--;
+
+    newp = MEM_mallocN(memh->len, "dupli_alloc");
+    memcpy(newp, vmemh, memh->len);
+  }
+
+  return newp;
 }
 
-void *MEM_dupallocN(void *vmemh)
-{
-	void *newp= NULL;
-	
-	if (vmemh) {
-		MemHead *memh= (MemHead*)vmemh;
-		memh--;
+void *MEM_mallocN(unsigned int len, char *str) {
+  MemHead *memh;
+  MemTail *memt;
 
-		newp= MEM_mallocN(memh->len, "dupli_alloc");
-		memcpy(newp, vmemh, memh->len);
-	}
+  len = (len + 3) & ~3; /* allocate in units of 4 */
 
-	return newp;
+  memh = (MemHead *)malloc(len + sizeof(MemHead) + sizeof(MemTail));
+
+  if (memh != 0) {
+    memh->tag1 = MEMTAG1;
+    memh->name = str;
+    memh->nextname = 0;
+    memh->len = len;
+    /*  		memh->level = 0; */
+    memh->tag2 = MEMTAG2;
+
+    memt = (MemTail *)(((char *)memh) + sizeof(MemHead) + len);
+    memt->tag3 = MEMTAG3;
+
+    addtail(membase, &memh->next);
+    if (memh->next)
+      memh->nextname = MEMNEXT(memh->next)->name;
+
+    totblock++;
+    mem_in_use += len;
+    return (++memh);
+  }
+  print_error("Malloc returns nill: len=%d in %s\n", len, str);
+  return 0;
 }
 
-void *MEM_mallocN(unsigned int len, char *str)
-{
-	MemHead *memh;
-	MemTail *memt;
+void *MEM_callocN(unsigned int len, char *str) {
+  MemHead *memh;
+  MemTail *memt;
 
-	len = (len + 3 ) & ~3; 	/* allocate in units of 4 */
-	
-	memh= (MemHead *)malloc(len+sizeof(MemHead)+sizeof(MemTail));
+  len = (len + 3) & ~3; /* allocate in units of 4 */
 
-	if(memh!=0) {
-		memh->tag1 = MEMTAG1;
-		memh->name = str;
-		memh->nextname = 0;
-		memh->len = len;
-/*  		memh->level = 0; */
-		memh->tag2 = MEMTAG2;
+  memh = (MemHead *)calloc(len + sizeof(MemHead) + sizeof(MemTail), 1);
 
-		memt = (MemTail *)(((char *) memh) + sizeof(MemHead) + len);
-		memt->tag3 = MEMTAG3;
+  if (memh != 0) {
+    memh->tag1 = MEMTAG1;
+    memh->name = str;
+    memh->nextname = 0;
+    memh->len = len;
+    /*  		memh->level = 0; */
+    memh->tag2 = MEMTAG2;
 
-		addtail(membase,&memh->next);
-		if (memh->next) memh->nextname = MEMNEXT(memh->next)->name;
+    memt = (MemTail *)(((char *)memh) + sizeof(MemHead) + len);
+    memt->tag3 = MEMTAG3;
 
-		totblock++;
-		mem_in_use += len;
-		return (++memh);
-	}
-	print_error("Malloc returns nill: len=%d in %s\n",len,str);
-	return 0;
+    addtail(membase, &memh->next);
+    if (memh->next)
+      memh->nextname = MEMNEXT(memh->next)->name;
+
+    totblock++;
+    mem_in_use += len;
+    return (++memh);
+  }
+  print_error("Calloc returns nill: len=%d in %s\n", len, str);
+  return 0;
 }
 
-void *MEM_callocN(unsigned int len, char *str)
-{
-	MemHead *memh;
-	MemTail *memt;
+void MEM_printmemlist() {
+  MemHead *membl;
 
-	len = (len + 3 ) & ~3; 	/* allocate in units of 4 */
-
-	memh= (MemHead *)calloc(len+sizeof(MemHead)+sizeof(MemTail),1);
-
-	if(memh!=0) {
-		memh->tag1 = MEMTAG1;
-		memh->name = str;
-		memh->nextname = 0;
-		memh->len = len;
-/*  		memh->level = 0; */
-		memh->tag2 = MEMTAG2;
-
-		memt = (MemTail *)(((char *) memh) + sizeof(MemHead) + len);
-		memt->tag3 = MEMTAG3;
-
-		addtail(membase,&memh->next);
-		if (memh->next) memh->nextname = MEMNEXT(memh->next)->name;
-
-		totblock++;
-		mem_in_use += len;
-		return (++memh);
-	}
-	print_error("Calloc returns nill: len=%d in %s\n",len,str);
-	return 0;
+  membl = (MemHead *)membase->first;
+  if (membl)
+    membl = MEMNEXT(membl);
+  while (membl) {
+    print_error("%s len: %d %p\n", membl->name, membl->len, membl + 1);
+    if (membl->next)
+      membl = MEMNEXT(membl->next);
+    else
+      break;
+  }
 }
 
-
-void MEM_printmemlist()
+short MEM_freeN(void *vmemh) /* anders compileertie niet meer */
 {
-	MemHead *membl;
+  short error = 0;
+  MemTail *memt;
+  MemHead *memh = (MemHead *)vmemh;
+  char *name;
 
-	membl = (MemHead*)membase->first;
-	if (membl) membl = MEMNEXT(membl);
-	while(membl) {
-		print_error("%s len: %d %p\n",membl->name,membl->len, membl+1);
-		if(membl->next)
-			membl= MEMNEXT(membl->next);
-		else break;
-	}
-}
+  if (memh == 0) {
+    MemorY_ErroR("free", "attempt to free NULL pointer");
+    /* print_error(err_stream, "%d\n", (memh+4000)->tag1); */
+    return (-1);
+  }
 
-short MEM_freeN(void *vmemh)		/* anders compileertie niet meer */
-{
-	short error = 0;
-	MemTail *memt;
-	MemHead *memh= (MemHead*)vmemh;
-	char *name;
+  if (sizeof(long) == 8) {
+    if (((long)memh) & 0x7) {
+      MemorY_ErroR("free", "attempt to free illegal pointer");
+      return (-1);
+    }
+  } else {
+    if (((long)memh) & 0x3) {
+      MemorY_ErroR("free", "attempt to free illegal pointer");
+      return (-1);
+    }
+  }
 
-	if (memh == 0){
-		MemorY_ErroR("free","attempt to free NULL pointer");
-		/* print_error(err_stream, "%d\n", (memh+4000)->tag1); */
-		return(-1);
-	}
+  memh--;
+  if (memh->tag1 == MEMFREE && memh->tag2 == MEMFREE) {
+    MemorY_ErroR(memh->name, "double free");
+    return (-1);
+  }
 
-	if(sizeof(long)==8) {
-		if (((long) memh) & 0x7) {
-			MemorY_ErroR("free","attempt to free illegal pointer");
-			return(-1);
-		}
-	}
-	else {
-		if (((long) memh) & 0x3) {
-			MemorY_ErroR("free","attempt to free illegal pointer");
-			return(-1);
-		}
-	}
-	
-	memh--;
-	if(memh->tag1 == MEMFREE && memh->tag2 == MEMFREE) {
-		MemorY_ErroR(memh->name,"double free");
-		return(-1);
-	}
+  if ((memh->tag1 == MEMTAG1) && (memh->tag2 == MEMTAG2) &&
+      ((memh->len & 0x3) == 0)) {
+    memt = (MemTail *)(((char *)memh) + sizeof(MemHead) + memh->len);
+    if (memt->tag3 == MEMTAG3) {
 
-	if ((memh->tag1 == MEMTAG1) && (memh->tag2 == MEMTAG2) && ((memh->len & 0x3) == 0)) {
-		memt = (MemTail *)(((char *) memh) + sizeof(MemHead) + memh->len);
-		if (memt->tag3 == MEMTAG3){
-			
-			memh->tag1 = MEMFREE;
-			memh->tag2 = MEMFREE;
-			memt->tag3 = MEMFREE;
-			/* na tags !!! */
-			rem_memblock(memh);
-			
-			return(0);
-		}
-		error = 2;
-		MemorY_ErroR(memh->name,"end corrupt");
-		name = check_memlist(memh);
-		if (name != 0){
-			if (name != memh->name) MemorY_ErroR(name,"is also corrupt");
-		}
-	} else{
-		error = -1;
-		name = check_memlist(memh);
-		if (name == 0) MemorY_ErroR("free","pointer not in memlist");
-		else MemorY_ErroR(name,"error in header");
-	}
+      memh->tag1 = MEMFREE;
+      memh->tag2 = MEMFREE;
+      memt->tag3 = MEMFREE;
+      /* na tags !!! */
+      rem_memblock(memh);
 
-	totblock--;
-	/* hier moet een DUMP plaatsvinden */
+      return (0);
+    }
+    error = 2;
+    MemorY_ErroR(memh->name, "end corrupt");
+    name = check_memlist(memh);
+    if (name != 0) {
+      if (name != memh->name)
+        MemorY_ErroR(name, "is also corrupt");
+    }
+  } else {
+    error = -1;
+    name = check_memlist(memh);
+    if (name == 0)
+      MemorY_ErroR("free", "pointer not in memlist");
+    else
+      MemorY_ErroR(name, "error in header");
+  }
 
-	return(error);
+  totblock--;
+  /* hier moet een DUMP plaatsvinden */
+
+  return (error);
 }
 
 /* --------------------------------------------------------------------- */
 /* local functions                                                       */
 /* --------------------------------------------------------------------- */
 
-static void addtail(localListBase *listbase, void *vlink)
-{
-	struct localLink *link= (localLink*)vlink;
+static void addtail(localListBase *listbase, void *vlink) {
+  struct localLink *link = (localLink *)vlink;
 
-	if (link == 0) return;
-	if (listbase == 0) return;
+  if (link == 0)
+    return;
+  if (listbase == 0)
+    return;
 
-	link->next = 0;
-	link->prev = (localLink*)listbase->last;
+  link->next = 0;
+  link->prev = (localLink *)listbase->last;
 
-	if (listbase->last) ((struct localLink *)listbase->last)->next = link;
-	if (listbase->first == 0) listbase->first = link;
-	listbase->last = link;
+  if (listbase->last)
+    ((struct localLink *)listbase->last)->next = link;
+  if (listbase->first == 0)
+    listbase->first = link;
+  listbase->last = link;
 }
 
-static void remlink(localListBase *listbase, void *vlink)
-{
-	struct localLink *link= (localLink*)vlink;
+static void remlink(localListBase *listbase, void *vlink) {
+  struct localLink *link = (localLink *)vlink;
 
-	if (link == 0) return;
-	if (listbase == 0) return;
+  if (link == 0)
+    return;
+  if (listbase == 0)
+    return;
 
-	if (link->next) link->next->prev = link->prev;
-	if (link->prev) link->prev->next = link->next;
+  if (link->next)
+    link->next->prev = link->prev;
+  if (link->prev)
+    link->prev->next = link->next;
 
-	if (listbase->last == link) listbase->last = link->prev;
-	if (listbase->first == link) listbase->first = link->next;
+  if (listbase->last == link)
+    listbase->last = link->prev;
+  if (listbase->first == link)
+    listbase->first = link->next;
 }
 
-static void rem_memblock(MemHead *memh)
-{
-	remlink(membase,&memh->next);
-	if (memh->prev){
-		if (memh->next) MEMNEXT(memh->prev)->nextname = MEMNEXT(memh->next)->name;
-		else MEMNEXT(memh->prev)->nextname = 0;
-	}
+static void rem_memblock(MemHead *memh) {
+  remlink(membase, &memh->next);
+  if (memh->prev) {
+    if (memh->next)
+      MEMNEXT(memh->prev)->nextname = MEMNEXT(memh->next)->name;
+    else
+      MEMNEXT(memh->prev)->nextname = 0;
+  }
 
-	totblock--;
-	mem_in_use -= memh->len;
-	free(memh);
+  totblock--;
+  mem_in_use -= memh->len;
+  free(memh);
 }
 
-static void MemorY_ErroR(char *block, char *error)
-{
-	print_error("Memoryblock %s: %s\n",block,error);
+static void MemorY_ErroR(char *block, char *error) {
+  print_error("Memoryblock %s: %s\n", block, error);
 }
 
-static char *check_memlist(MemHead *memh)
-{
-	MemHead *forw,*back,*forwok,*backok;
-	char *name;
+static char *check_memlist(MemHead *memh) {
+  MemHead *forw, *back, *forwok, *backok;
+  char *name;
 
-	forw = (MemHead*)membase->first;
-	if (forw) forw = MEMNEXT(forw);
-	forwok = 0;
-	while(forw){
-		if (forw->tag1 != MEMTAG1 || forw->tag2 != MEMTAG2) break;
-		forwok = forw;
-		if (forw->next) forw = MEMNEXT(forw->next);
-		else forw = 0;
-	}
+  forw = (MemHead *)membase->first;
+  if (forw)
+    forw = MEMNEXT(forw);
+  forwok = 0;
+  while (forw) {
+    if (forw->tag1 != MEMTAG1 || forw->tag2 != MEMTAG2)
+      break;
+    forwok = forw;
+    if (forw->next)
+      forw = MEMNEXT(forw->next);
+    else
+      forw = 0;
+  }
 
-	back = (MemHead *) membase->last;
-	if (back) back = MEMNEXT(back);
-	backok = 0;
-	while(back){
-		if (back->tag1 != MEMTAG1 || back->tag2 != MEMTAG2) break;
-		backok = back;
-		if (back->prev) back = MEMNEXT(back->prev);
-		else back = 0;
-	}
+  back = (MemHead *)membase->last;
+  if (back)
+    back = MEMNEXT(back);
+  backok = 0;
+  while (back) {
+    if (back->tag1 != MEMTAG1 || back->tag2 != MEMTAG2)
+      break;
+    backok = back;
+    if (back->prev)
+      back = MEMNEXT(back->prev);
+    else
+      back = 0;
+  }
 
-	if (forw != back) return ("MORE THAN 1 MEMORYBLOCK CORRUPT");
+  if (forw != back)
+    return ("MORE THAN 1 MEMORYBLOCK CORRUPT");
 
-	if (forw == 0 && back == 0){
-		/* geen foute headers gevonden dan maar op zoek naar memblock*/
+  if (forw == 0 && back == 0) {
+    /* geen foute headers gevonden dan maar op zoek naar memblock*/
 
-		forw = (MemHead*)membase->first;
-		if (forw) forw = MEMNEXT(forw);
-		forwok = 0;
-		while(forw){
-			if (forw == memh) break;
-			if (forw->tag1 != MEMTAG1 || forw->tag2 != MEMTAG2) break;
-			forwok = forw;
-			if (forw->next) forw = MEMNEXT(forw->next);
-			else forw = 0;
-		}
-		if (forw == 0) return (0);
+    forw = (MemHead *)membase->first;
+    if (forw)
+      forw = MEMNEXT(forw);
+    forwok = 0;
+    while (forw) {
+      if (forw == memh)
+        break;
+      if (forw->tag1 != MEMTAG1 || forw->tag2 != MEMTAG2)
+        break;
+      forwok = forw;
+      if (forw->next)
+        forw = MEMNEXT(forw->next);
+      else
+        forw = 0;
+    }
+    if (forw == 0)
+      return (0);
 
-		back = (MemHead *) membase->last;
-		if (back) back = MEMNEXT(back);
-		backok = 0;
-		while(back){
-			if (back == memh) break;
-			if (back->tag1 != MEMTAG1 || back->tag2 != MEMTAG2) break;
-			backok = back;
-			if (back->prev) back = MEMNEXT(back->prev);
-			else back = 0;
-		}
-	}
+    back = (MemHead *)membase->last;
+    if (back)
+      back = MEMNEXT(back);
+    backok = 0;
+    while (back) {
+      if (back == memh)
+        break;
+      if (back->tag1 != MEMTAG1 || back->tag2 != MEMTAG2)
+        break;
+      backok = back;
+      if (back->prev)
+        back = MEMNEXT(back->prev);
+      else
+        back = 0;
+    }
+  }
 
-	if (forwok) name = forwok->nextname;
-	else name = "No name found";
+  if (forwok)
+    name = forwok->nextname;
+  else
+    name = "No name found";
 
-	if (forw == memh){
-		/* voor alle zekerheid wordt dit block maar uit de lijst gehaald */
-		if (forwok){
-			if (backok){
-				forwok->next = (MemHead *)&backok->next;
-				backok->prev = (MemHead *)&forwok->next;
-				forwok->nextname = backok->name;
-			} else{
-				forwok->next = 0;
-  				membase->last = (struct localLink *) &forwok->next; 
-/*  				membase->last = (struct Link *) &forwok->next; */
-			}
-		} else{
-			if (backok){
-				backok->prev = 0;
-				membase->first = &backok->next;
-			} else{
-				membase->first = membase->last = 0;
-			}
-		}
-	} else{
-		MemorY_ErroR(name,"Additional error in header");
-		return("Additional error in header");
-	}
+  if (forw == memh) {
+    /* voor alle zekerheid wordt dit block maar uit de lijst gehaald */
+    if (forwok) {
+      if (backok) {
+        forwok->next = (MemHead *)&backok->next;
+        backok->prev = (MemHead *)&forwok->next;
+        forwok->nextname = backok->name;
+      } else {
+        forwok->next = 0;
+        membase->last = (struct localLink *)&forwok->next;
+        /*  				membase->last = (struct Link *)
+         * &forwok->next; */
+      }
+    } else {
+      if (backok) {
+        backok->prev = 0;
+        membase->first = &backok->next;
+      } else {
+        membase->first = membase->last = 0;
+      }
+    }
+  } else {
+    MemorY_ErroR(name, "Additional error in header");
+    return ("Additional error in header");
+  }
 
-	return(name);
+  return (name);
 }
 
 /* eof */

@@ -41,72 +41,67 @@
 struct DerivedMesh;
 
 /* note; changing this also might affect the undo copy in editmesh.c */
-typedef struct EditVert
-{
-	struct EditVert *next, *prev, *vn;
-	float no[3];
-	float co[3];
-	short xs, ys;
-	unsigned char f, h, f1, f2;
-	short fast;	/* only 0 or 1, for editmesh_fastmalloc */
-	short	totweight;				/* __NLA */
-	int hash;
-	struct MDeformWeight *dw;	/* __NLA */
-	int keyindex; /* original index #, for restoring  key information */
-	void *vvert;
+typedef struct EditVert {
+  struct EditVert *next, *prev, *vn;
+  float no[3];
+  float co[3];
+  short xs, ys;
+  unsigned char f, h, f1, f2;
+  short fast;      /* only 0 or 1, for editmesh_fastmalloc */
+  short totweight; /* __NLA */
+  int hash;
+  struct MDeformWeight *dw; /* __NLA */
+  int keyindex; /* original index #, for restoring  key information */
+  void *vvert;
 } EditVert;
 
 struct EditEdge;
 
 typedef struct HashEdge {
-	struct EditEdge *eed;
-	struct HashEdge *next;
+  struct EditEdge *eed;
+  struct HashEdge *next;
 } HashEdge;
 
 /* note; changing this also might affect the undo copy in editmesh.c */
-typedef struct EditEdge
-{
-	struct EditEdge *next, *prev;
-	struct EditVert *v1, *v2, *vn;
-	short f1, f2;	/* short, f1 is (ab)used in subdiv */
-	unsigned char f, h, dir, seam;
-	float crease;
-	short fast; 		/* only 0 or 1, for editmesh_fastmalloc */
-	short fgoni;		/* index for fgon, for search */
-	HashEdge hash;
+typedef struct EditEdge {
+  struct EditEdge *next, *prev;
+  struct EditVert *v1, *v2, *vn;
+  short f1, f2; /* short, f1 is (ab)used in subdiv */
+  unsigned char f, h, dir, seam;
+  float crease;
+  short fast;  /* only 0 or 1, for editmesh_fastmalloc */
+  short fgoni; /* index for fgon, for search */
+  HashEdge hash;
 } EditEdge;
 
 /* note; changing this also might affect the undo copy in editmesh.c */
-typedef struct EditFace
-{
-	struct EditFace *next, *prev;
-	struct EditVert *v1, *v2, *v3, *v4;
-	struct EditEdge *e1, *e2, *e3, *e4;
-	float n[3], cent[3];
-	struct TFace tf;	/* a copy of original tface. */
-	unsigned char mat_nr, flag;
-	unsigned char f, f1, h;
-	unsigned char fast;			/* only 0 or 1, for editmesh_fastmalloc */
-	unsigned char fgonf;		/* flag for fgon options */
-	void *vface;
+typedef struct EditFace {
+  struct EditFace *next, *prev;
+  struct EditVert *v1, *v2, *v3, *v4;
+  struct EditEdge *e1, *e2, *e3, *e4;
+  float n[3], cent[3];
+  struct TFace tf; /* a copy of original tface. */
+  unsigned char mat_nr, flag;
+  unsigned char f, f1, h;
+  unsigned char fast;  /* only 0 or 1, for editmesh_fastmalloc */
+  unsigned char fgonf; /* flag for fgon options */
+  void *vface;
 } EditFace;
 
-typedef struct EditMesh
-{
-	ListBase verts, edges, faces;
-	HashEdge *hashedgetab;
-	
-	/* this is for the editmesh_fastmalloc */
-	EditVert *allverts, *curvert;
-	EditEdge *alledges, *curedge;
-	EditFace *allfaces, *curface;
-	
-	void *vnode;
-		/* DerivedMesh caches... note that derived cage can be equivalent
-		 * to derived final, care should be taken on release.
-		 */
-	struct DerivedMesh *derivedCage, *derivedFinal;
+typedef struct EditMesh {
+  ListBase verts, edges, faces;
+  HashEdge *hashedgetab;
+
+  /* this is for the editmesh_fastmalloc */
+  EditVert *allverts, *curvert;
+  EditEdge *alledges, *curedge;
+  EditFace *allfaces, *curface;
+
+  void *vnode;
+  /* DerivedMesh caches... note that derived cage can be equivalent
+   * to derived final, care should be taken on release.
+   */
+  struct DerivedMesh *derivedCage, *derivedFinal;
 } EditMesh;
 
 #endif
-

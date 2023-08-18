@@ -44,9 +44,9 @@ struct bDeformGroup;
 struct View3D;
 
 // edge and face flag both
-#define EM_FGON		2
+#define EM_FGON 2
 // face flag
-#define EM_FGON_DRAW	1
+#define EM_FGON_DRAW 1
 
 extern unsigned int em_vertoffs, em_solidoffs, em_wireoffs;
 
@@ -56,7 +56,7 @@ extern void load_editMesh(void);
 extern void free_editMesh(struct EditMesh *);
 extern void remake_editMesh(void);
 
-	/* Editmesh Undo code */
+/* Editmesh Undo code */
 extern void undo_push_mesh(char *name);
 
 extern void separatemenu(void);
@@ -77,9 +77,9 @@ extern void EM_clear_flag_all(int flag);
 extern void EM_select_face(struct EditFace *efa, int sel);
 extern void EM_select_edge(struct EditEdge *eed, int sel);
 
-extern void EM_deselect_flush(void);	// vertices to edges/faces (exception!)
-extern void EM_select_flush(void);	// vertices to edges/faces (exception!)
-extern void EM_selectmode_set(void); // when mode changes
+extern void EM_deselect_flush(void);   // vertices to edges/faces (exception!)
+extern void EM_select_flush(void);     // vertices to edges/faces (exception!)
+extern void EM_selectmode_set(void);   // when mode changes
 extern void EM_selectmode_flush(void); // when selection changes
 
 extern int EM_nfaces_selected(void);
@@ -100,14 +100,15 @@ extern struct EditFace *EM_get_face_for_index(int index);
 
 extern void EM_select_face_fgon(struct EditFace *efa, int sel);
 
-extern int EM_init_backbuf_border(short xmin, short ymin, short xmax, short ymax);
-extern int EM_mask_init_backbuf_border(short mcords[][2], short tot, short xmin, short ymin, short xmax, short ymax);
+extern int EM_init_backbuf_border(short xmin, short ymin, short xmax,
+                                  short ymax);
+extern int EM_mask_init_backbuf_border(short mcords[][2], short tot, short xmin,
+                                       short ymin, short xmax, short ymax);
 extern int EM_init_backbuf_circle(short xs, short ys, short rads);
 extern int EM_check_backbuf(unsigned int index);
 extern void EM_free_backbuf(void);
 
 extern void EM_selectmode_menu(void);
-
 
 extern void vertexnoise(void);
 extern void vertexsmooth(void);
@@ -123,16 +124,17 @@ extern void reveal_mesh(void);
 
 extern void vertices_to_sphere(void);
 
-	/** Aligns the selected TFace's of @a me to the @a v3d,
-	 * using the given axis (0-2). Can give a user error.
-	 */
-extern void faceselect_align_view_to_selected(struct View3D *v3d, struct Mesh *me, int axis);
-	/** Aligns the selected faces or vertices of @a me to the @a v3d,
-	 * using the given axis (0-2). Can give a user error.
-	 */
+/** Aligns the selected TFace's of @a me to the @a v3d,
+ * using the given axis (0-2). Can give a user error.
+ */
+extern void faceselect_align_view_to_selected(struct View3D *v3d,
+                                              struct Mesh *me, int axis);
+/** Aligns the selected faces or vertices of @a me to the @a v3d,
+ * using the given axis (0-2). Can give a user error.
+ */
 extern void editmesh_align_view_to_selected(struct View3D *v3d, int axis);
 
-	/* Selection */
+/* Selection */
 extern void select_non_manifold(void);
 extern void select_faces_by_numverts(int numverts);
 extern void select_more(void);
@@ -143,7 +145,6 @@ extern void editmesh_deselect_by_material(int index);
 
 extern void Edge_Menu(void);
 extern void editmesh_mark_seam(int clear);
-
 
 /* ******************* editmesh_loop.c */
 
@@ -156,15 +157,15 @@ extern void CutEdgeloop(int numcuts);
 extern void KnifeSubdivide(char mode);
 extern void LoopMenu(void);
 
-#define LOOP_SELECT	1
-#define LOOP_CUT	2
+#define LOOP_SELECT 1
+#define LOOP_CUT 2
 
-extern short sharesFace(struct EditEdge* e1, struct EditEdge* e2);
+extern short sharesFace(struct EditEdge *e1, struct EditEdge *e2);
 
 /* ******************* editmesh_tools.c */
 
-#define SUBDIV_SELECT_ORIG      0
-#define SUBDIV_SELECT_INNER     1
+#define SUBDIV_SELECT_ORIG 0
+#define SUBDIV_SELECT_INNER 1
 #define SUBDIV_SELECT_INNER_SEL 2
 
 extern void convert_to_triface(int direction);
@@ -172,12 +173,13 @@ extern int removedoublesflag(short flag, float limit);
 extern void xsortvert_flag(int flag);
 extern void hashvert_flag(int flag);
 extern void subdivideflag(int flag, float rad, int beauty);
-extern void esubdivideflag(int flag, float rad, int beauty, int numcuts, int selecttype);
+extern void esubdivideflag(int flag, float rad, int beauty, int numcuts,
+                           int selecttype);
 extern void extrude_mesh(void);
 extern void split_mesh(void);
 extern void extrude_repeat_mesh(int steps, float offs);
-extern void spin_mesh(int steps,int degr,float *dvec, int mode);
-extern void screw_mesh(int steps,int turns);
+extern void spin_mesh(int steps, int degr, float *dvec, int mode);
+extern void screw_mesh(int steps, int turns);
 extern void delete_mesh(void);
 extern void beauty_fill(void);
 extern void join_triangles(void);
@@ -187,12 +189,13 @@ extern void bevel_menu();
 void edge_rotate_selected(int dir);
 int EdgeSlide(short immediate, float imperc);
 void EdgeLoopDelete(void);
- 
-struct EditVert *editedge_getOtherVert(struct EditEdge *eed, struct EditVert *ev);
-struct EditVert *editedge_getSharedVert(struct EditEdge *eed, struct EditEdge *eed2);
+
+struct EditVert *editedge_getOtherVert(struct EditEdge *eed,
+                                       struct EditVert *ev);
+struct EditVert *editedge_getSharedVert(struct EditEdge *eed,
+                                        struct EditEdge *eed2);
 int editedge_containsVert(struct EditEdge *eed, struct EditVert *eve);
 int editface_containsVert(struct EditFace *efa, struct EditVert *eve);
 int editface_containsEdge(struct EditFace *efa, struct EditEdge *eed);
 
 #endif
-

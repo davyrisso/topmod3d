@@ -1,11 +1,9 @@
 #ifndef DLFLCURVATURECONNECT_HH
 #define DLFLCURVATURECONNECT_HH
 
-
-class DLFLCurvatureConnect
-{
+class DLFLCurvatureConnect {
 public:
-    DLFLCurvatureConnect();
+  DLFLCurvatureConnect();
 };
 
 #endif // DLFLCURVATURECONNECT_HH

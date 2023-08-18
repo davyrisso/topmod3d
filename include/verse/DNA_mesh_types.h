@@ -1,5 +1,5 @@
 /**
- * $Id$ 
+ * $Id$
  *
  * ***** BEGIN GPL/BL DUAL LICENSE BLOCK *****
  *
@@ -32,8 +32,8 @@
 #ifndef DNA_MESH_TYPES_H
 #define DNA_MESH_TYPES_H
 
-#include "DNA_listBase.h"
 #include "DNA_ID.h"
+#include "DNA_listBase.h"
 
 struct DerivedMesh;
 struct DispListMesh;
@@ -50,121 +50,121 @@ struct OcInfo;
 
 typedef struct TFace {
 
-	/* this one gets interpreted as a image in texture.c  */
-	void *tpage;
+  /* this one gets interpreted as a image in texture.c  */
+  void *tpage;
 
-	float uv[4][2];		/* when you change this: also do function set_correct_uv in editmesh.c, and there are more locations that use the size of this part */
-	unsigned int col[4];
-	char flag, transp;
-	short mode, tile, unwrap;
+  float uv[4][2]; /* when you change this: also do function set_correct_uv in
+                     editmesh.c, and there are more locations that use the size
+                     of this part */
+  unsigned int col[4];
+  char flag, transp;
+  short mode, tile, unwrap;
 } TFace;
 
 typedef struct Mesh {
-	ID id;
+  ID id;
 
-	struct BoundBox *bb;
+  struct BoundBox *bb;
 
-	ListBase effect;
-	
-	struct Ipo *ipo;
-	struct Key *key;
-	struct Material **mat;
+  ListBase effect;
 
-	struct MFace *mface;
-	struct TFace *tface;
-	void *dface;
-	struct MVert *mvert;
-	struct MEdge *medge;
-	struct MDeformVert *dvert;	/* __NLA */
-	struct MCol *mcol;
-	struct MSticky *msticky;
-	struct Mesh *texcomesh;
+  struct Ipo *ipo;
+  struct Key *key;
+  struct Material **mat;
 
-	struct OcInfo *oc;		/* not written in file */
-	void *sumohandle;
+  struct MFace *mface;
+  struct TFace *tface;
+  void *dface;
+  struct MVert *mvert;
+  struct MEdge *medge;
+  struct MDeformVert *dvert; /* __NLA */
+  struct MCol *mcol;
+  struct MSticky *msticky;
+  struct Mesh *texcomesh;
 
-	int totvert, totedge, totface;
-	int texflag;
-	
-	float loc[3];
-	float size[3];
-	float rot[3];
-	
-	float cubemapsize, pad;
+  struct OcInfo *oc; /* not written in file */
+  void *sumohandle;
 
-	short smoothresh, flag;
+  int totvert, totedge, totface;
+  int texflag;
 
-	short subdiv, subdivr;
-	short totcol;
-	short subsurftype; 
+  float loc[3];
+  float size[3];
+  float rot[3];
 
-	/* not written in file, pointer at geometry VerseNode */
-	void *vnode;	
+  float cubemapsize, pad;
+
+  short smoothresh, flag;
+
+  short subdiv, subdivr;
+  short totcol;
+  short subsurftype;
+
+  /* not written in file, pointer at geometry VerseNode */
+  void *vnode;
 } Mesh;
-
-
 
 /* **************** MESH ********************* */
 
 /* texflag */
-#define AUTOSPACE	1
+#define AUTOSPACE 1
 
 /* me->flag */
-#define ME_ISDONE		1
-#define ME_NOPUNOFLIP	2
-#define ME_TWOSIDED		4
-#define ME_UVEFFECT		8
-#define ME_VCOLEFFECT	16
-#define ME_AUTOSMOOTH	32
-#define ME_SMESH		64
-#define ME_SUBSURF		128
-#define ME_OPT_EDGES	256
+#define ME_ISDONE 1
+#define ME_NOPUNOFLIP 2
+#define ME_TWOSIDED 4
+#define ME_UVEFFECT 8
+#define ME_VCOLEFFECT 16
+#define ME_AUTOSMOOTH 32
+#define ME_SMESH 64
+#define ME_SUBSURF 128
+#define ME_OPT_EDGES 256
 
 /* Subsurf Type */
-#define ME_CC_SUBSURF 		0
-#define ME_SIMPLE_SUBSURF 	1
+#define ME_CC_SUBSURF 0
+#define ME_SIMPLE_SUBSURF 1
 
-#define TF_DYNAMIC		1
+#define TF_DYNAMIC 1
 /* #define TF_INVISIBLE	2 */
-#define TF_TEX			4
-#define TF_SHAREDVERT	8
-#define TF_LIGHT		16
+#define TF_TEX 4
+#define TF_SHAREDVERT 8
+#define TF_LIGHT 16
 
-#define TF_SHAREDCOL	64
-#define TF_TILES		128
-#define TF_BILLBOARD	256
-#define TF_TWOSIDE		512
-#define TF_INVISIBLE	1024
+#define TF_SHAREDCOL 64
+#define TF_TILES 128
+#define TF_BILLBOARD 256
+#define TF_TWOSIDE 512
+#define TF_INVISIBLE 1024
 
-#define TF_OBCOL		2048
-#define TF_BILLBOARD2		4096	/* with Z axis constraint */
-#define TF_SHADOW		8192
-#define TF_BMFONT		16384
+#define TF_OBCOL 2048
+#define TF_BILLBOARD2 4096 /* with Z axis constraint */
+#define TF_SHADOW 8192
+#define TF_BMFONT 16384
 
 /* tface->flag: 1=select 2=active*/
-#define TF_SELECT	1
-#define TF_ACTIVE	2
-#define TF_SEL1		4
-#define TF_SEL2		8
-#define TF_SEL3		16
-#define TF_SEL4		32
-#define TF_HIDE		64
+#define TF_SELECT 1
+#define TF_ACTIVE 2
+#define TF_SEL1 4
+#define TF_SEL2 8
+#define TF_SEL3 16
+#define TF_SEL4 32
+#define TF_HIDE 64
 
 /* tface->transp */
-#define TF_SOLID	0
-#define TF_ADD		1
-#define TF_ALPHA	2
-#define TF_SUB		3
+#define TF_SOLID 0
+#define TF_ADD 1
+#define TF_ALPHA 2
+#define TF_SUB 3
 
 /* tface->unwrap */
-#define TF_SEAM1	1
-#define TF_SEAM2	2
-#define TF_SEAM3	4
-#define TF_SEAM4	8
-#define TF_PIN1	    16
-#define TF_PIN2	    32
-#define TF_PIN3	    64
-#define TF_PIN4	    128
+#define TF_SEAM1 1
+#define TF_SEAM2 2
+#define TF_SEAM3 4
+#define TF_SEAM4 8
+#define TF_PIN1 16
+#define TF_PIN2 32
+#define TF_PIN3 64
+#define TF_PIN4 128
 
 #define MESH_MAX_VERTS 2000000000L
 

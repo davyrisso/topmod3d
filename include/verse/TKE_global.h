@@ -5,7 +5,7 @@
  * any data in Blender. This block is not serialized, but built anew
  * for every fresh Blender run.
  *
- * $Id$ 
+ * $Id$
  *
  * ***** BEGIN GPL/BL DUAL LICENSE BLOCK *****
  *
@@ -63,166 +63,165 @@ struct bSoundListener;
 struct BMF_Font;
 struct EditMesh;
 
-
 typedef struct Global {
 
-    /* active pointers */
-    struct View3D *vd;
-    struct View2D *v2d;
-    struct SpaceIpo *sipo;
-    struct SpaceButs *buts;
-    struct SpaceImage *sima;
-    struct SpaceOops *soops;
-    struct SpaceSound *ssound;
-	struct SpaceAction *saction;	/* __NLA */
-	struct SpaceNla *snla;
-    struct Main *main;
-    struct Scene *scene;				/* denk aan file.c */
-    struct bScreen *curscreen;
-    struct Object *obedit;
-	char editModeTitleExtra[64];
-	
-    /* fonts, allocated global data */
-    struct BMF_Font *font, *fonts, *fontss;
-    
-    /* strings: lastsaved */
-    char ima[160], sce[160], lib[160];
-    
-    /* totals */
-    short totobj, totlamp, totobjsel, totcurve, totmesh, totbone, totbonesel;
-    int totvert, totedge, totface, totvertsel, totedgesel, totfacesel;
-    
-    short afbreek, moving;
-    short qual, background;
-	short winpos, displaymode;	/* used to be in Render */
-	
-	/**
-	 * The current version of Blender.
-	 */
-    short version;
-	short simulf, order, rt;
-	int f;
+  /* active pointers */
+  struct View3D *vd;
+  struct View2D *v2d;
+  struct SpaceIpo *sipo;
+  struct SpaceButs *buts;
+  struct SpaceImage *sima;
+  struct SpaceOops *soops;
+  struct SpaceSound *ssound;
+  struct SpaceAction *saction; /* __NLA */
+  struct SpaceNla *snla;
+  struct Main *main;
+  struct Scene *scene; /* denk aan file.c */
+  struct bScreen *curscreen;
+  struct Object *obedit;
+  char editModeTitleExtra[64];
 
-    /* Editmode lists */
-	struct EditMesh *editMesh;
-    
-    float textcurs[4][2];
-    
-    /* Frank's variables */
-     int	save_over;
+  /* fonts, allocated global data */
+  struct BMF_Font *font, *fonts, *fontss;
 
-	/* Reevan's __NLA variables */
-	struct	ListBase edbo;			/* Armature Editmode bones */
- 
-	/* Rob's variables */
-	int have_quicktime;
-	int ui_international;
-	int charstart;
-	int charmin;
-	int charmax;
-	struct VFont *selfont;
-	struct ListBase ttfdata;
+  /* strings: lastsaved */
+  char ima[160], sce[160], lib[160];
 
-    /* this variable is written to / read from FileGlobal->fileflags */
-    int fileflags;
-    
-	/* save the allowed windowstate of blender when using -W or -w */
-	int windowstate;
+  /* totals */
+  short totobj, totlamp, totobjsel, totcurve, totmesh, totbone, totbonesel;
+  int totvert, totedge, totface, totvertsel, totedgesel, totfacesel;
 
-	/* Janco's playing ground */
-	struct bSoundListener* listener;
+  short afbreek, moving;
+  short qual, background;
+  short winpos, displaymode; /* used to be in Render */
 
-    /* Test thingy for Nzc */
-	int compat;      /* toggle compatibility mode for edge rendering */
-	int notonlysolid;/* T-> also edge-render transparent faces       */
-	
-	/* confusing... G.f and G.flags */
-    int flags;
+  /**
+   * The current version of Blender.
+   */
+  short version;
+  short simulf, order, rt;
+  int f;
+
+  /* Editmode lists */
+  struct EditMesh *editMesh;
+
+  float textcurs[4][2];
+
+  /* Frank's variables */
+  int save_over;
+
+  /* Reevan's __NLA variables */
+  struct ListBase edbo; /* Armature Editmode bones */
+
+  /* Rob's variables */
+  int have_quicktime;
+  int ui_international;
+  int charstart;
+  int charmin;
+  int charmax;
+  struct VFont *selfont;
+  struct ListBase ttfdata;
+
+  /* this variable is written to / read from FileGlobal->fileflags */
+  int fileflags;
+
+  /* save the allowed windowstate of blender when using -W or -w */
+  int windowstate;
+
+  /* Janco's playing ground */
+  struct bSoundListener *listener;
+
+  /* Test thingy for Nzc */
+  int compat;       /* toggle compatibility mode for edge rendering */
+  int notonlysolid; /* T-> also edge-render transparent faces       */
+
+  /* confusing... G.f and G.flags */
+  int flags;
 
 } Global;
 
 /* **************** GLOBAL ********************* */
 
 /* G.f */
-#define G_DISABLE_OK	(1 <<  0)
-#define G_PLAYANIM		(1 <<  1)
+#define G_DISABLE_OK (1 << 0)
+#define G_PLAYANIM (1 << 1)
 /* also uses G_FILE_AUTOPLAY */
-#define G_SIMULATION	(1 <<  3)
-#define G_BACKBUFSEL	(1 <<  4)
-#define G_PICKSEL		(1 <<  5)
-#define G_DRAWNORMALS	(1 <<  6)
-#define G_DRAWFACES		(1 <<  7)
-#define G_FACESELECT	(1 <<  8)
-#define G_DRAW_EXT		(1 <<  9)
-#define G_VERTEXPAINT	(1 << 10)
-#define G_ALLEDGES		(1 << 11)
-#define G_DEBUG			(1 << 12)
+#define G_SIMULATION (1 << 3)
+#define G_BACKBUFSEL (1 << 4)
+#define G_PICKSEL (1 << 5)
+#define G_DRAWNORMALS (1 << 6)
+#define G_DRAWFACES (1 << 7)
+#define G_FACESELECT (1 << 8)
+#define G_DRAW_EXT (1 << 9)
+#define G_VERTEXPAINT (1 << 10)
+#define G_ALLEDGES (1 << 11)
+#define G_DEBUG (1 << 12)
 #define G_DOSCRIPTLINKS (1 << 13)
-#define G_DRAW_VNORMALS	(1 << 14)
-#define G_WEIGHTPAINT	(1 << 15)	
-#define G_TEXTUREPAINT	(1 << 16)
+#define G_DRAW_VNORMALS (1 << 14)
+#define G_WEIGHTPAINT (1 << 15)
+#define G_TEXTUREPAINT (1 << 16)
 /* #define G_NOFROZEN	(1 << 17) also removed */
-#define G_DRAWEDGES		(1 << 18)
-#define G_DRAWCREASES	(1 << 19)
-#define G_DRAWSEAMS     (1 << 20)
-#define G_HIDDENEDGES   (1 << 21)
+#define G_DRAWEDGES (1 << 18)
+#define G_DRAWCREASES (1 << 19)
+#define G_DRAWSEAMS (1 << 20)
+#define G_HIDDENEDGES (1 << 21)
 
 /* Measurement info Drawing */
-#define G_DRAW_EDGELEN  (1 << 22) 
+#define G_DRAW_EDGELEN (1 << 22)
 #define G_DRAW_FACEAREA (1 << 23)
-#define G_DRAW_EDGEANG  (1 << 24)
+#define G_DRAW_EDGEANG (1 << 24)
 
-#define G_RECORDKEYS	(1 << 25)
+#define G_RECORDKEYS (1 << 25)
 
-#define G_VERSE_CONNECTED  (1 << 26)
+#define G_VERSE_CONNECTED (1 << 26)
 
 /* G.fileflags */
 
-#define G_AUTOPACK               (1 << 0)
-#define G_FILE_COMPRESS          (1 << 1)
-#define G_FILE_AUTOPLAY          (1 << 2)
+#define G_AUTOPACK (1 << 0)
+#define G_FILE_COMPRESS (1 << 1)
+#define G_FILE_AUTOPLAY (1 << 2)
 #define G_FILE_ENABLE_ALL_FRAMES (1 << 3)
-#define G_FILE_SHOW_DEBUG_PROPS  (1 << 4)
-#define G_FILE_SHOW_FRAMERATE    (1 << 5)
-#define G_FILE_SHOW_PROFILE      (1 << 6)
-#define G_FILE_LOCK              (1 << 7)
-#define G_FILE_SIGN              (1 << 8)
-#define G_FILE_PUBLISH			 (1 << 9)
-#define G_FILE_NO_UI			 (1 << 10)
-#define G_FILE_GAME_TO_IPO		 (1 << 11)
+#define G_FILE_SHOW_DEBUG_PROPS (1 << 4)
+#define G_FILE_SHOW_FRAMERATE (1 << 5)
+#define G_FILE_SHOW_PROFILE (1 << 6)
+#define G_FILE_LOCK (1 << 7)
+#define G_FILE_SIGN (1 << 8)
+#define G_FILE_PUBLISH (1 << 9)
+#define G_FILE_NO_UI (1 << 10)
+#define G_FILE_GAME_TO_IPO (1 << 11)
 
 /* G.windowstate */
-#define G_WINDOWSTATE_USERDEF		0
-#define G_WINDOWSTATE_BORDER		1
-#define G_WINDOWSTATE_FULLSCREEN	2
+#define G_WINDOWSTATE_USERDEF 0
+#define G_WINDOWSTATE_BORDER 1
+#define G_WINDOWSTATE_FULLSCREEN 2
 
 /* G.simulf */
-#define G_LOADFILE	2
-#define G_RESTART	4
-#define G_QUIT		8
-#define G_SETSCENE	16
+#define G_LOADFILE 2
+#define G_RESTART 4
+#define G_QUIT 8
+#define G_SETSCENE 16
 
 /* G.qual */
-#define R_SHIFTKEY		1
-#define L_SHIFTKEY		2
-#define LR_SHIFTKEY 	3
-#define R_ALTKEY		4
-#define L_ALTKEY		8
-#define LR_ALTKEY		12
-#define R_CTRLKEY		16
-#define L_CTRLKEY		32
-#define LR_CTRLKEY  	48
-#define LR_COMMANDKEY 	64
+#define R_SHIFTKEY 1
+#define L_SHIFTKEY 2
+#define LR_SHIFTKEY 3
+#define R_ALTKEY 4
+#define L_ALTKEY 8
+#define LR_ALTKEY 12
+#define R_CTRLKEY 16
+#define L_CTRLKEY 32
+#define LR_CTRLKEY 48
+#define LR_COMMANDKEY 64
 
 /* G.order: indicates what endianness the platform where the file was
  * written had. */
-#define L_ENDIAN	1
-#define B_ENDIAN	0
+#define L_ENDIAN 1
+#define B_ENDIAN 0
 
 /* G.moving, signals drawing in (3d) window to denote transform */
-#define G_TRANSFORM_OBJ		1
-#define G_TRANSFORM_EDIT	2
-#define G_TRANSFORM_MANIP	4
+#define G_TRANSFORM_OBJ 1
+#define G_TRANSFORM_EDIT 2
+#define G_TRANSFORM_MANIP 4
 
 /* G.special1 */
 
@@ -234,4 +233,3 @@ extern Global G;
 #endif
 
 #endif
-

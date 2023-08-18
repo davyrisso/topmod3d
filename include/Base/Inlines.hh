@@ -1,30 +1,30 @@
 /*
-*
-* ***** BEGIN GPL LICENSE BLOCK *****
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License
-* as published by the Free Software Foundation; either version 2
-* of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software  Foundation,
-* Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*
-* The Original Code is Copyright (C) 2005 by xxxxxxxxxxxxxx
-* All rights reserved.
-*
-* The Original Code is: all of this file.
-*
-* Contributor(s): none yet.
-*
-* ***** END GPL LICENSE BLOCK *****
-*/
+ *
+ * ***** BEGIN GPL LICENSE BLOCK *****
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software  Foundation,
+ * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * The Original Code is Copyright (C) 2005 by xxxxxxxxxxxxxx
+ * All rights reserved.
+ *
+ * The Original Code is: all of this file.
+ *
+ * Contributor(s): none yet.
+ *
+ * ***** END GPL LICENSE BLOCK *****
+ */
 
 // $Id: Inlines.hh,v 1.4 2002/10/25 15:40:47 vinod Exp $
 
@@ -43,31 +43,19 @@
 
 typedef unsigned int uint;
 
-
 //--- Inline absolute value functions ---//
 
 #ifndef _INLINE_ABS_
 
 #define _INLINE_ABS_
 
-inline int Abs(int x)
-{
-  return (x < 0) ? -x : x;
-}
+inline int Abs(int x) { return (x < 0) ? -x : x; }
 
-inline float Abs(float x)
-{
-  return (x < 0.0) ? -x : x;
-}
+inline float Abs(float x) { return (x < 0.0) ? -x : x; }
 
-inline double Abs(double x)
-{
-  return (x < 0.0) ? -x : x;
-}
+inline double Abs(double x) { return (x < 0.0) ? -x : x; }
 
 #endif // #ifndef _INLINE_ABS_
-
-
 
 //--- Checking against zero ---//
 
@@ -75,19 +63,13 @@ inline double Abs(double x)
 
 #define _INLINE_ZERO_CHECKS_
 
-inline bool isNonZero(int num)
-{
-  return ( ( num != 0 ) ? true : false );
-}
+inline bool isNonZero(int num) { return ((num != 0) ? true : false); }
 
-inline bool isNonZero(double num)
-{
-  return ( ( (num < -ZERO) || (num > ZERO) ) ? true : false );
+inline bool isNonZero(double num) {
+  return (((num < -ZERO) || (num > ZERO)) ? true : false);
 }
 
 #endif // #ifndef _INLINE_ZERO_CHECKS_
-
-
 
 //--- Floating point comparison ---//
 
@@ -95,19 +77,15 @@ inline bool isNonZero(double num)
 
 #define _INLINE_FP_EQUAL_
 
-inline bool areEqual(float x1, float x2)
-{
-  return ( ( Abs(x1-x2) < ZERO ) ? true : false );
+inline bool areEqual(float x1, float x2) {
+  return ((Abs(x1 - x2) < ZERO) ? true : false);
 }
 
-inline bool areEqual(double x1, double x2)
-{
-  return ( ( Abs(x1-x2) < ZERO ) ? true : false );
+inline bool areEqual(double x1, double x2) {
+  return ((Abs(x1 - x2) < ZERO) ? true : false);
 }
 
 #endif // #ifndef _INLINE_FP_EQUAL_
-
-
 
 //--- Checking for odd and even numbers ---//
 
@@ -115,29 +93,15 @@ inline bool areEqual(double x1, double x2)
 
 #define _INLINE_ODD_EVEN_
 
-inline bool isOdd(int num)
-{
-  return ( (num % 2) ? true : false );
-}
+inline bool isOdd(int num) { return ((num % 2) ? true : false); }
 
-inline bool isEven(int num)
-{
-  return ( (num % 2) ? false : true );
-}
+inline bool isEven(int num) { return ((num % 2) ? false : true); }
 
-inline bool isOdd(uint num)
-{
-  return ( (num % 2) ? true : false );
-}
+inline bool isOdd(uint num) { return ((num % 2) ? true : false); }
 
-inline bool isEven(uint num)
-{
-  return ( (num % 2) ? false : true );
-}
+inline bool isEven(uint num) { return ((num % 2) ? false : true); }
 
 #endif // #ifndef _INLINE_ODD_EVEN_
-
-
 
 //--- Mathematical subroutines ---//
 
@@ -145,49 +109,23 @@ inline bool isEven(uint num)
 
 #define _INLINE_MATH_
 
-inline int sqr(int x)
-{
-  return x*x;
-}
+inline int sqr(int x) { return x * x; }
 
-inline int cube(int x)
-{
-  return x*x*x;
-}
+inline int cube(int x) { return x * x * x; }
 
-inline uint sqr(uint x)
-{
-  return x*x;
-}
+inline uint sqr(uint x) { return x * x; }
 
-inline uint cube(uint x)
-{
-  return x*x*x;
-}
+inline uint cube(uint x) { return x * x * x; }
 
-inline float sqr(float x)
-{
-  return x*x;
-}
+inline float sqr(float x) { return x * x; }
 
-inline float cube(float x)
-{
-  return x*x*x;
-}
+inline float cube(float x) { return x * x * x; }
 
-inline double sqr(double x)
-{
-  return x*x;
-}
+inline double sqr(double x) { return x * x; }
 
-inline double cube(double x)
-{
-  return x*x*x;
-}
+inline double cube(double x) { return x * x * x; }
 
 #endif // #ifndef _INLINE_MATH_
-
-
 
 //--- Min and Max subroutines ---//
 
@@ -195,49 +133,23 @@ inline double cube(double x)
 
 #define _INLINE_MIN_MAX_
 
-inline int min(int x, int y)
-{
-  return ( (x < y) ? x : y );
-}
+inline int min(int x, int y) { return ((x < y) ? x : y); }
 
-inline int max(int x, int y)
-{
-  return ( (x > y) ? x : y );
-}
+inline int max(int x, int y) { return ((x > y) ? x : y); }
 
-inline uint min(uint x, uint y)
-{
-  return ( (x < y) ? x : y );
-}
+inline uint min(uint x, uint y) { return ((x < y) ? x : y); }
 
-inline uint max(uint x, uint y)
-{
-  return ( (x > y) ? x : y );
-}
+inline uint max(uint x, uint y) { return ((x > y) ? x : y); }
 
-inline float min(float x, float y)
-{
-  return ( (x < y) ? x : y );
-}
+inline float min(float x, float y) { return ((x < y) ? x : y); }
 
-inline float max(float x, float y)
-{
-  return ( (x > y) ? x : y );
-}
+inline float max(float x, float y) { return ((x > y) ? x : y); }
 
-inline double min(double x, double y)
-{
-  return ( (x < y) ? x : y );
-}
+inline double min(double x, double y) { return ((x < y) ? x : y); }
 
-inline double max(double x, double y)
-{
-  return ( (x > y) ? x : y );
-}
+inline double max(double x, double y) { return ((x > y) ? x : y); }
 
 #endif // #ifndef _INLINE_MIN_MAX_
-
-
 
 //--- Swap two numbers ---//
 
@@ -245,29 +157,31 @@ inline double max(double x, double y)
 
 #define _INLINE_SWAP_
 
-inline void swap(int& x, int& y)
-{
-  int t = x; x = y; y = t;
+inline void swap(int &x, int &y) {
+  int t = x;
+  x = y;
+  y = t;
 }
 
-inline void swap(uint& x, uint& y)
-{
-  uint t = x; x = y; y = t;
+inline void swap(uint &x, uint &y) {
+  uint t = x;
+  x = y;
+  y = t;
 }
 
-inline void swap(float& x, float& y)
-{
-  float t = x; x = y; y = t;
+inline void swap(float &x, float &y) {
+  float t = x;
+  x = y;
+  y = t;
 }
 
-inline void swap(double& x, double& y)
-{
-  double t = x; x = y; y = t;
+inline void swap(double &x, double &y) {
+  double t = x;
+  x = y;
+  y = t;
 }
 
 #endif // #ifndef _INLINE_SWAP_
-
-
 
 //--- Conversion between radians and angles ---//
 
@@ -275,29 +189,15 @@ inline void swap(double& x, double& y)
 
 #define _INLINE_DEG_RAD_
 
-inline float deg2rad(float deg)
-{
-  return deg*M_PI/180.0;
-}
+inline float deg2rad(float deg) { return deg * M_PI / 180.0; }
 
-inline double deg2rad(double deg)
-{
-  return deg*M_PI/180.0;
-}
+inline double deg2rad(double deg) { return deg * M_PI / 180.0; }
 
-inline float rad2deg(float rad)
-{
-  return rad*180.0/M_PI;
-}
+inline float rad2deg(float rad) { return rad * 180.0 / M_PI; }
 
-inline double rad2deg(double rad)
-{
-  return rad*180.0/M_PI;
-}
+inline double rad2deg(double rad) { return rad * 180.0 / M_PI; }
 
 #endif // #ifndef _INLINE_DEG_RAD_
-
-
 
 //--- Sign of numbers ---//
 
@@ -305,35 +205,22 @@ inline double rad2deg(double rad)
 
 #define _INLINE_SIGN_
 
-inline int sign(int x)
-{
-  return ( (x < 0) ? -1 : ((x > 0) ? 1 : 0) );
+inline int sign(int x) { return ((x < 0) ? -1 : ((x > 0) ? 1 : 0)); }
+
+inline float sign(float x) {
+  return ((x < 0.0) ? -1.0 : ((x > 0.0) ? 1.0 : 0.0));
 }
 
-inline float sign(float x)
-{
-  return ( (x < 0.0) ? -1.0 : ((x > 0.0) ? 1.0 : 0.0) );
-}
-
-inline double sign(double x)
-{
-  return ( (x < 0.0) ? -1.0 : ((x > 0.0) ? 1.0 : 0.0) );
+inline double sign(double x) {
+  return ((x < 0.0) ? -1.0 : ((x > 0.0) ? 1.0 : 0.0));
 }
 
 // For matrices - sign of cofactor. 1 if i+j is even, -1 if i+j is odd
-inline int cofsign(int i, int j)
-{
-  return ( ((i+j)%2) ? -1 : 1 );
-}
+inline int cofsign(int i, int j) { return (((i + j) % 2) ? -1 : 1); }
 
-inline int cofsign(uint i, uint j)
-{
-  return ( ((i+j)%2) ? -1 : 1 );
-}
+inline int cofsign(uint i, uint j) { return (((i + j) % 2) ? -1 : 1); }
 
 #endif // #ifndef _INLINE_SIGN_
-
-
 
 //--- Wrap a given integer to lie between 0 and size-1 ---//
 // Assumes that the specified size is > 0
@@ -342,16 +229,14 @@ inline int cofsign(uint i, uint j)
 
 #define _INLINE_WRAP_
 
-inline int wrap(int i, int size)
-{
-  int retval = (i%size);
-  return ( (retval >= 0) ? retval : size+retval );
+inline int wrap(int i, int size) {
+  int retval = (i % size);
+  return ((retval >= 0) ? retval : size + retval);
 }
 
 #endif // #ifndef _INLINE_WRAP_
 
-
-#endif // #ifndef _INLINES_HH_ 
+#endif // #ifndef _INLINES_HH_
 
 // $Log: Inlines.hh,v $
 // Revision 1.4  2002/10/25 15:40:47  vinod

@@ -1,35 +1,35 @@
 /*
-*
-* ***** BEGIN GPL LICENSE BLOCK *****
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License
-* as published by the Free Software Foundation; either version 2
-* of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software  Foundation,
-* Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*
-* The Original Code is Copyright (C) 2005 by xxxxxxxxxxxxxx
-* All rights reserved.
-*
-* The Original Code is: all of this file.
-*
-* Contributor(s): none yet.
-*
-* ***** END GPL LICENSE BLOCK *****
-*
-* Short description of this file
-*
-* name of .hh file containing function prototypes
-*
-*/
+ *
+ * ***** BEGIN GPL LICENSE BLOCK *****
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software  Foundation,
+ * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * The Original Code is Copyright (C) 2005 by xxxxxxxxxxxxxx
+ * All rights reserved.
+ *
+ * The Original Code is: all of this file.
+ *
+ * Contributor(s): none yet.
+ *
+ * ***** END GPL LICENSE BLOCK *****
+ *
+ * Short description of this file
+ *
+ * name of .hh file containing function prototypes
+ *
+ */
 
 //#include "function.h"
 //#include "valuemanager.h"
@@ -41,25 +41,26 @@
 #include "PythonHighlighter.hh"
 
 //#include <netwm.h>
-//#include <fixx11h.h>  // netwm.h includes X11 headers which conflict with qevent
+//#include <fixx11h.h>  // netwm.h includes X11 headers which conflict with
+//qevent
 
 #include <QApplication>
-#include <QScrollBar>
 #include <QLabel>
+#include <QScrollBar>
 //#include <QLineEdit>
+#include <QFrame>
+#include <QHBoxLayout>
+#include <QKeyEvent>
 #include <QListWidget>
+#include <QMouseEvent>
 #include <QPainter>
 #include <QRegExp>
 #include <QStringList>
 #include <QStyle>
+#include <QStyleOption>
 #include <QTimer>
 #include <QToolTip>
-#include <QHBoxLayout>
 #include <QWheelEvent>
-#include <QKeyEvent>
-#include <QFrame>
-#include <QMouseEvent>
-#include <QStyleOption>
 //#include <QX11Info>
 
 /*class EditorHighlighter : public PythonHighlighter {
@@ -72,84 +73,81 @@ private:
 
 class Editor::Private {
 public:
-  Private() { }
+  Private() {}
 
-  ~Private() { }
+  ~Private() {}
 
   QString unExecuted;
   QStringList history;
   int index;
   bool autoCompleteEnabled;
-  EditorCompletion* completion;
-  QTimer* completionTimer;
+  EditorCompletion *completion;
+  QTimer *completionTimer;
   bool syntaxHighlightEnabled;
-  PythonHighlighter* highlighter;
-  QMap<ColorType,QColor> highlightColors;
-  QTimer* matchingTimer;
+  PythonHighlighter *highlighter;
+  QMap<ColorType, QColor> highlightColors;
+  QTimer *matchingTimer;
 };
 
 class EditorCompletion::Private {
 public:
-  Editor* editor;
+  Editor *editor;
   QFrame *completionPopup;
   QListWidget *completionListBox;
 };
 
-class ChoiceItem: public QListWidgetItem {
-  public:
-  ChoiceItem( const QString&, QListWidget* );
-    void setMinNameWidth (int w) { minNameWidth = w; }
-    int nameWidth() const;
+class ChoiceItem : public QListWidgetItem {
+public:
+  ChoiceItem(const QString &, QListWidget *);
+  void setMinNameWidth(int w) { minNameWidth = w; }
+  int nameWidth() const;
 
-  protected:
-    void paint( QPainter* p );
+protected:
+  void paint(QPainter *p);
 
-  private:
-    QString item;
-    QString desc;
-    int minNameWidth;
+private:
+  QString item;
+  QString desc;
+  int minNameWidth;
 };
 
-ChoiceItem::ChoiceItem( const QString& text, QListWidget* listBox ):
-  QListWidgetItem( text, listBox ), minNameWidth(0)
-{
-  QStringList list = text.split( ':' );
+ChoiceItem::ChoiceItem(const QString &text, QListWidget *listBox)
+    : QListWidgetItem(text, listBox), minNameWidth(0) {
+  QStringList list = text.split(':');
 
-  if( !list.isEmpty() )
+  if (!list.isEmpty())
     item = list[0];
 
-  if( list.count() > 1 )
+  if (list.count() > 1)
     desc = list[1];
 }
 
 // Returns width of this particular list item's name.
-int ChoiceItem::nameWidth() const
-{
-  if(item.isEmpty())
+int ChoiceItem::nameWidth() const {
+  if (item.isEmpty())
     return 0;
 
   QFontMetrics fm = listWidget()->fontMetrics();
-  return fm.width( item );
+  return fm.width(item);
 }
 
-void ChoiceItem::paint( QPainter* painter )
-{
+void ChoiceItem::paint(QPainter *painter) {
   int itemHeight = listWidget()->height();
   QFontMetrics fm = painter->fontMetrics();
-  int yPos = ( ( itemHeight - fm.height() ) / 2 ) + fm.ascent();
-  painter->drawText( 3, yPos, item );
+  int yPos = ((itemHeight - fm.height()) / 2) + fm.ascent();
+  painter->drawText(3, yPos, item);
 
-  //int xPos = fm.width( item );
+  // int xPos = fm.width( item );
   int xPos = qMax(fm.width(item), minNameWidth);
 
-  if( !isSelected() ) {
+  if (!isSelected()) {
     QPalette p = listWidget()->palette();
-    p.setCurrentColorGroup( QPalette::Disabled );
+    p.setCurrentColorGroup(QPalette::Disabled);
 
-    painter->setPen( p.color( QPalette::Text ).dark() );
+    painter->setPen(p.color(QPalette::Text).dark());
   }
 
-  painter->drawText( 10 + xPos, yPos, desc );
+  painter->drawText(10 + xPos, yPos, desc);
 }
 
 /*EditorHighlighter::EditorHighlighter( Editor* e ):
@@ -166,8 +164,9 @@ void EditorHighlighter::highlightBlock ( const QString & text )
     return;
   }
 
-  QStringList fnames = FunctionManager::instance()->functionList(FunctionManager::All);
-  fnames.sort(); // Sort list so we can bin search it.
+  QStringList fnames =
+FunctionManager::instance()->functionList(FunctionManager::All); fnames.sort();
+// Sort list so we can bin search it.
 
   TokenList tokens = Lexer::tokenize( text );
 
@@ -203,50 +202,44 @@ void EditorHighlighter::highlightBlock ( const QString & text )
   return;
 }*/
 
-Editor::Editor( QWidget* parent ):
-  QTextEdit( parent )
-{
+Editor::Editor(QWidget *parent) : QTextEdit(parent) {
   d = new Private;
   d->index = 0;
   d->autoCompleteEnabled = true;
-  d->completion = new EditorCompletion( this );
-  d->completionTimer = new QTimer( this );
+  d->completion = new EditorCompletion(this);
+  d->completionTimer = new QTimer(this);
   d->syntaxHighlightEnabled = true;
-  d->highlighter = new PythonHighlighter(this);//EditorHighlighter( this );
+  d->highlighter = new PythonHighlighter(this); // EditorHighlighter( this );
 
-  d->completionTimer->setSingleShot( true );
+  d->completionTimer->setSingleShot(true);
 
-  //setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed );
-  setWordWrapMode( QTextOption::NoWrap );
-  setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-  //setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-  setAcceptRichText( false );
-  setAutoFormatting( AutoNone );
-  setTabChangesFocus( false ); //true );
+  // setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed );
+  setWordWrapMode(QTextOption::NoWrap);
+  setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  // setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+  setAcceptRichText(false);
+  setAutoFormatting(AutoNone);
+  setTabChangesFocus(false); // true );
 
-  connect( d->completion, SIGNAL( selectedCompletion( const QString& ) ),
-    SLOT( autoComplete( const QString& ) ) );
-  connect( this, SIGNAL( textChanged() ), SLOT( checkAutoComplete() ) );
-  connect( d->completionTimer, SIGNAL( timeout() ), SLOT( triggerAutoComplete() ) );
+  connect(d->completion, SIGNAL(selectedCompletion(const QString &)),
+          SLOT(autoComplete(const QString &)));
+  connect(this, SIGNAL(textChanged()), SLOT(checkAutoComplete()));
+  connect(d->completionTimer, SIGNAL(timeout()), SLOT(triggerAutoComplete()));
 
-  setHighlightColor( Number, QColor(0,0,127) );
-  setHighlightColor( FunctionName, QColor(85,0,0) );
-  setHighlightColor( Variable, QColor(0,85,0) );
-  setHighlightColor( MatchedPar, QColor(255,255,183) );
+  setHighlightColor(Number, QColor(0, 0, 127));
+  setHighlightColor(FunctionName, QColor(85, 0, 0));
+  setHighlightColor(Variable, QColor(0, 85, 0));
+  setHighlightColor(MatchedPar, QColor(255, 255, 183));
 }
 
-Editor::~Editor()
-{
-  delete d;
-}
+Editor::~Editor() { delete d; }
 
-QSize Editor::sizeHint() const
-{
+QSize Editor::sizeHint() const {
   ensurePolished();
 
   QFontMetrics fm = fontMetrics();
   int h = qMax(fm.lineSpacing(), 14) + 4;
-  int w = fm.width( 'x' ) * 17 + 4;
+  int w = fm.width('x') * 17 + 4;
   int m = frameWidth() * 2;
 
   QStyleOptionFrameV2 styleOptions;
@@ -254,75 +247,62 @@ QSize Editor::sizeHint() const
   styleOptions.palette = palette();
   styleOptions.state = QStyle::State_None;
 
-  return style()->sizeFromContents(QStyle::CT_LineEdit, &styleOptions,
-             QSize( w + m, h + m ).
-             expandedTo(QApplication::globalStrut()));
+  return style()->sizeFromContents(
+      QStyle::CT_LineEdit, &styleOptions,
+      QSize(w + m, h + m).expandedTo(QApplication::globalStrut()));
 }
 
-QStringList Editor::history() const
-{
-  return d->history;
-}
+QStringList Editor::history() const { return d->history; }
 
-void Editor::setHistory( const QStringList& h )
-{
+void Editor::setHistory(const QStringList &h) {
   d->history = h;
   d->index = d->history.count();
 }
 
-bool Editor::autoCompleteEnabled() const
-{
-  return d->autoCompleteEnabled;
-}
+bool Editor::autoCompleteEnabled() const { return d->autoCompleteEnabled; }
 
-void Editor::setAutoCompleteEnabled( bool enable )
-{
+void Editor::setAutoCompleteEnabled(bool enable) {
   d->autoCompleteEnabled = enable;
 }
 
-void Editor::appendHistory( const QString& text )
-{
-  if( text.isEmpty() ) return;
+void Editor::appendHistory(const QString &text) {
+  if (text.isEmpty())
+    return;
 
   QString lastText;
-  if( d->history.count() )
-    lastText = d->history[ d->history.count()-1 ];
-  if( text == lastText ) return;
+  if (d->history.count())
+    lastText = d->history[d->history.count() - 1];
+  if (text == lastText)
+    return;
 
-  d->history.append( text );
+  d->history.append(text);
   d->index = d->history.count();
 }
 
-void Editor::clearHistory()
-{
+void Editor::clearHistory() {
   d->history.clear();
   d->index = 0;
 }
 
-void Editor::moveCursorToEnd()
-{
+void Editor::moveCursorToEnd() {
   QTextCursor cursor = textCursor();
-  cursor.movePosition( QTextCursor::End );
-  setTextCursor( cursor );
+  cursor.movePosition(QTextCursor::End);
+  setTextCursor(cursor);
 }
 
-void Editor::setPlainText(const QString &txt)
-{
-  QTextEdit::setPlainText(txt);
-}
+void Editor::setPlainText(const QString &txt) { QTextEdit::setPlainText(txt); }
 
-void Editor::checkAutoComplete()
-{
-  if( !d->autoCompleteEnabled )
+void Editor::checkAutoComplete() {
+  if (!d->autoCompleteEnabled)
     return;
 
   d->completionTimer->stop();
-  d->completionTimer->start( 500 );
+  d->completionTimer->start(500);
 }
 
-void Editor::triggerAutoComplete()
-{
-  if( !d->autoCompleteEnabled ) return;
+void Editor::triggerAutoComplete() {
+  if (!d->autoCompleteEnabled)
+    return;
   /*
   // tokenize the expression (don't worry, this is very fast)
   // faster now that it uses flex. ;)
@@ -346,8 +326,9 @@ void Editor::triggerAutoComplete()
     return;
 
   // find matches in function names
-  QStringList fnames = FunctionManager::instance()->functionList(FunctionManager::All);
-  QStringList choices;
+  QStringList fnames =
+  FunctionManager::instance()->functionList(FunctionManager::All); QStringList
+  choices;
 
   foreach( QString str, fnames )
   {
@@ -399,8 +380,8 @@ void Editor::triggerAutoComplete()
 
     cursor = textCursor();
     cursor.insertText( str );
-    cursor.movePosition( QTextCursor::Right, QTextCursor::KeepAnchor, str.length() );
-    setTextCursor( cursor );
+    cursor.movePosition( QTextCursor::Right, QTextCursor::KeepAnchor,
+  str.length() ); setTextCursor( cursor );
 
     blockSignals( false );
     return;
@@ -410,114 +391,113 @@ void Editor::triggerAutoComplete()
   d->completion->showCompletion( choices );*/
 }
 
-void Editor::autoComplete( const QString& item )
-{/*
-  if( !d->autoCompleteEnabled || item.isEmpty() )
-    return;
+void Editor::autoComplete(
+    const QString
+        &item) { /*
+                  if( !d->autoCompleteEnabled || item.isEmpty() )
+                    return;
 
-  QTextCursor cursor = textCursor();
-  cursor.movePosition( QTextCursor::Start, QTextCursor::KeepAnchor );
+                  QTextCursor cursor = textCursor();
+                  cursor.movePosition( QTextCursor::Start,
+                  QTextCursor::KeepAnchor );
 
-  TokenList tokens = Lexer::tokenize( cursor.selectedText() );
+                  TokenList tokens = Lexer::tokenize( cursor.selectedText() );
 
-  if( tokens.isEmpty() )
-    return;
+                  if( tokens.isEmpty() )
+                    return;
 
-  Token lastToken = tokens[ tokens.count()-1 ];
-  if( lastToken.type() != Token::Identifier )
-    return;
+                  Token lastToken = tokens[ tokens.count()-1 ];
+                  if( lastToken.type() != Token::Identifier )
+                    return;
 
-  QStringList str = item.split( ':' );
+                  QStringList str = item.split( ':' );
 
-  blockSignals( true );
+                  blockSignals( true );
 
-  cursor.setPosition( lastToken.pos() );
-  cursor.movePosition( QTextCursor::Right, QTextCursor::KeepAnchor, lastToken.text().length() );
-  cursor.insertText( str[0] );
+                  cursor.setPosition( lastToken.pos() );
+                  cursor.movePosition( QTextCursor::Right,
+                  QTextCursor::KeepAnchor, lastToken.text().length() );
+                  cursor.insertText( str[0] );
 
-  setTextCursor( cursor );
+                  setTextCursor( cursor );
 
-  blockSignals( false );*/
+                  blockSignals( false );*/
 }
 
-void Editor::historyBack()
-{
-  if( d->history.isEmpty() )
+void Editor::historyBack() {
+  if (d->history.isEmpty())
     return;
 
   d->index--;
-  if( d->index < 0 )
+  if (d->index < 0)
     d->index = 0;
 
-  if( d->index >= d->history.count()-1 ) {
-    if( !(toPlainText().isEmpty()) )
+  if (d->index >= d->history.count() - 1) {
+    if (!(toPlainText().isEmpty()))
       d->unExecuted = toPlainText();
     else
       d->unExecuted = QString("");
   }
 
-	if( d->index >= 0 && d->index < d->history.count() )
-		setPlainText( d->history[ d->index ] );
+  if (d->index >= 0 && d->index < d->history.count())
+    setPlainText(d->history[d->index]);
 
   QTextCursor cursor = textCursor();
-  cursor.movePosition( QTextCursor::End );
-  setTextCursor( cursor );
+  cursor.movePosition(QTextCursor::End);
+  setTextCursor(cursor);
 
   ensureCursorVisible();
 }
 
-void Editor::goToHistoryStart( ) {
+void Editor::goToHistoryStart() {
   d->index = d->history.count();
-  setPlainText( d->unExecuted ); //tr("") );
+  setPlainText(d->unExecuted); // tr("") );
 }
 
-void Editor::historyForward()
-{
-  if( d->history.isEmpty() )
+void Editor::historyForward() {
+  if (d->history.isEmpty())
     return;
 
-	if( d->index < d->history.count() )
-		d->index++;
+  if (d->index < d->history.count())
+    d->index++;
 
-  if( d->index >= d->history.count() ) {
+  if (d->index >= d->history.count()) {
     d->index = d->history.count();
-    setPlainText( d->unExecuted ); //tr("") );
+    setPlainText(d->unExecuted); // tr("") );
   } else {
-    setPlainText( d->history[ d->index ] );
+    setPlainText(d->history[d->index]);
   }
 
   QTextCursor cursor = textCursor();
-  cursor.movePosition( QTextCursor::End );
-  setTextCursor( cursor );
+  cursor.movePosition(QTextCursor::End);
+  setTextCursor(cursor);
 
   ensureCursorVisible();
 }
 
-void Editor::mousePressEvent ( QMouseEvent *e ) {
-  if( e->button() == Qt::RightButton ) {
-
+void Editor::mousePressEvent(QMouseEvent *e) {
+  if (e->button() == Qt::RightButton) {
   }
-  QTextEdit::mousePressEvent( e );
+  QTextEdit::mousePressEvent(e);
 }
 
-void Editor::keyPressEvent( QKeyEvent* e )
-{
-  if( e->key() == Qt::Key_PageUp )//&& e->modifiers() == Qt::CTRL )
+void Editor::keyPressEvent(QKeyEvent *e) {
+  if (e->key() == Qt::Key_PageUp) //&& e->modifiers() == Qt::CTRL )
   {
     historyBack();
-    //e->accept();
+    // e->accept();
     return;
   }
 
-  if( e->key() == Qt::Key_PageDown )//&& e->modifiers() == Qt::CTRL )
+  if (e->key() == Qt::Key_PageDown) //&& e->modifiers() == Qt::CTRL )
   {
     historyForward();
-    //e->accept();
+    // e->accept();
     return;
   }
 
-  if( (e->key() == Qt::Key_Enter && e->modifiers() == Qt::CTRL) || 
-      (e->key() == Qt::Key_Return && e->modifiers() == Qt::CTRL) ) {
+  if ((e->key() == Qt::Key_Enter && e->modifiers() == Qt::CTRL) ||
+      (e->key() == Qt::Key_Return && e->modifiers() == Qt::CTRL)) {
     d->unExecuted = QString("");
     emit ctrlReturnPressed();
     return;
@@ -531,186 +511,168 @@ void Editor::keyPressEvent( QKeyEvent* e )
     //checkMatching();
   }
   */
-  QTextEdit::keyPressEvent( e );
+  QTextEdit::keyPressEvent(e);
 }
 
-void Editor::wheelEvent( QWheelEvent *e )
-{
+void Editor::wheelEvent(QWheelEvent *e) {
   /*if( e->delta() > 0 )
     historyBack();
   else if( e->delta() < 0 )
     historyForward();
 
   e->accept();
-	*/
-	QTextEdit::wheelEvent( e );
+        */
+  QTextEdit::wheelEvent(e);
 }
 
-void Editor::setSyntaxHighlight( bool enable )
-{
+void Editor::setSyntaxHighlight(bool enable) {
   d->syntaxHighlightEnabled = enable;
   d->highlighter->rehighlight();
 }
 
-bool Editor::isSyntaxHighlightEnabled() const
-{
+bool Editor::isSyntaxHighlightEnabled() const {
   return d->syntaxHighlightEnabled;
 }
 
-void Editor::setHighlightColor( ColorType type, QColor color )
-{
-  d->highlightColors[ type ] = color;
+void Editor::setHighlightColor(ColorType type, QColor color) {
+  d->highlightColors[type] = color;
   d->highlighter->rehighlight();
 }
 
-QColor Editor::highlightColor( ColorType type )
-{
-  return d->highlightColors[ type ];
+QColor Editor::highlightColor(ColorType type) {
+  return d->highlightColors[type];
 }
 
-
-EditorCompletion::EditorCompletion( Editor* editor ): QObject( editor )
-{
+EditorCompletion::EditorCompletion(Editor *editor) : QObject(editor) {
   d = new Private;
   d->editor = editor;
 
-  d->completionPopup = new QFrame( editor->topLevelWidget() );
-  d->completionPopup->setWindowFlags( Qt::Popup );
-  d->completionPopup->setFrameStyle( QFrame::Box | QFrame::Plain );
-  d->completionPopup->setLineWidth( 1 );
-  d->completionPopup->installEventFilter( this );
-  d->completionPopup->setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Minimum);
+  d->completionPopup = new QFrame(editor->topLevelWidget());
+  d->completionPopup->setWindowFlags(Qt::Popup);
+  d->completionPopup->setFrameStyle(QFrame::Box | QFrame::Plain);
+  d->completionPopup->setLineWidth(1);
+  d->completionPopup->installEventFilter(this);
+  d->completionPopup->setSizePolicy(QSizePolicy::Expanding,
+                                    QSizePolicy::Minimum);
 
   QLayout *layout = new QVBoxLayout(d->completionPopup);
   layout->setMargin(0);
 
-  d->completionListBox = new QListWidget( d->completionPopup );
-  d->completionPopup->setFocusProxy( d->completionListBox );
-  d->completionListBox->setFrameStyle( QFrame::NoFrame );
-  //d->completionListBox->setVariableWidth( true );
-  d->completionListBox->installEventFilter( this );
+  d->completionListBox = new QListWidget(d->completionPopup);
+  d->completionPopup->setFocusProxy(d->completionListBox);
+  d->completionListBox->setFrameStyle(QFrame::NoFrame);
+  // d->completionListBox->setVariableWidth( true );
+  d->completionListBox->installEventFilter(this);
 
   layout->addWidget(d->completionListBox);
 }
 
-EditorCompletion::~EditorCompletion()
-{
-  delete d;
-}
+EditorCompletion::~EditorCompletion() { delete d; }
 
-bool EditorCompletion::eventFilter( QObject *obj, QEvent *ev )
-{
-  if ( obj == d->completionPopup || obj == d->completionListBox )
-  {
+bool EditorCompletion::eventFilter(QObject *obj, QEvent *ev) {
+  if (obj == d->completionPopup || obj == d->completionListBox) {
 
-    if ( ev->type() == QEvent::KeyPress )
-    {
-      QKeyEvent *ke = (QKeyEvent*)ev;
-      if ( ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return  )
-      {
+    if (ev->type() == QEvent::KeyPress) {
+      QKeyEvent *ke = (QKeyEvent *)ev;
+      if (ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return) {
         doneCompletion();
         return true;
-      }
-      else if ( ke->key() == Qt::Key_Left || ke->key() == Qt::Key_Right ||
-      ke->key() == Qt::Key_Up || ke->key() == Qt::Key_Down ||
-      ke->key() == Qt::Key_Home || ke->key() == Qt::Key_End ||
-      ke->key() == Qt::Key_PageUp || ke->key() == Qt::Key_PageDown )
+      } else if (ke->key() == Qt::Key_Left || ke->key() == Qt::Key_Right ||
+                 ke->key() == Qt::Key_Up || ke->key() == Qt::Key_Down ||
+                 ke->key() == Qt::Key_Home || ke->key() == Qt::Key_End ||
+                 ke->key() == Qt::Key_PageUp || ke->key() == Qt::Key_PageDown)
         return false;
 
       d->completionPopup->close();
       d->editor->setFocus();
-      QApplication::sendEvent( d->editor, ev );
+      QApplication::sendEvent(d->editor, ev);
       return true;
     }
 
-    if ( ev->type() == QEvent::MouseButtonDblClick )
-    {
+    if (ev->type() == QEvent::MouseButtonDblClick) {
       doneCompletion();
       return true;
     }
-
   }
 
   return false;
 }
 
-void EditorCompletion::doneCompletion()
-{
+void EditorCompletion::doneCompletion() {
   d->completionPopup->close();
   d->editor->setFocus();
-  emit selectedCompletion( d->completionListBox->currentItem()->text() );
+  emit selectedCompletion(d->completionListBox->currentItem()->text());
 }
 
-void EditorCompletion::showCompletion( const QStringList &choices )
-{
+void EditorCompletion::showCompletion(const QStringList &choices) {
   static bool shown = false;
 
-  if( choices.isEmpty() )
+  if (choices.isEmpty())
     return;
 
   d->completionListBox->clear();
   int maxWidth = 0;
-  for( int i = 0; i < choices.count(); i++ ) {
-    ChoiceItem *item = new ChoiceItem( choices[i], d->completionListBox );
+  for (int i = 0; i < choices.count(); i++) {
+    ChoiceItem *item = new ChoiceItem(choices[i], d->completionListBox);
     int itemMaxWidth = item->nameWidth();
 
-    if(itemMaxWidth > maxWidth)
+    if (itemMaxWidth > maxWidth)
       maxWidth = itemMaxWidth;
   }
 
-  for(unsigned i = 0; i < d->completionListBox->count(); ++i) {
+  for (unsigned i = 0; i < d->completionListBox->count(); ++i) {
     ChoiceItem *item = static_cast<ChoiceItem *>(d->completionListBox->item(i));
     item->setMinNameWidth(maxWidth);
   }
 
-  d->completionListBox->setCurrentItem( 0 );
+  d->completionListBox->setCurrentItem(0);
 
   // size of the pop-up
-  d->completionPopup->setMaximumHeight( 120 );
-  d->completionPopup->resize( d->completionListBox->sizeHint() +
-			      QSize( d->completionListBox->verticalScrollBar()->width() + 4,
-				     d->completionListBox->horizontalScrollBar()->height() + 4 ) );
+  d->completionPopup->setMaximumHeight(120);
+  d->completionPopup->resize(
+      d->completionListBox->sizeHint() +
+      QSize(d->completionListBox->verticalScrollBar()->width() + 4,
+            d->completionListBox->horizontalScrollBar()->height() + 4));
 
-  if(!shown)
-  {
+  if (!shown) {
     d->completionPopup->show();
-    QTimer::singleShot ( 0, this, SLOT(moveCompletionPopup()) );
-  }
-  else
-  {
+    QTimer::singleShot(0, this, SLOT(moveCompletionPopup()));
+  } else {
     moveCompletionPopup();
     d->completionPopup->show();
   }
 }
 
-void EditorCompletion::moveCompletionPopup()
-{/*
-  int h = d->completionListBox->height();
-  int w = d->completionListBox->width();
+void EditorCompletion::
+    moveCompletionPopup() { /*
+                             int h = d->completionListBox->height();
+                             int w = d->completionListBox->width();
 
-  // position, reference is editor's cursor position in global coord
-  QFontMetrics fm( d->editor->font() );
+                             // position, reference is editor's cursor position
+                           in global coord QFontMetrics fm( d->editor->font() );
 
-//  int pixelsOffset = fm.width( d->editor->text(), curPos );
-//  pixelsOffset -= d->editor->contentsX();
-  QPoint pos = d->editor->mapToGlobal( QPoint( d->editor->cursorRect().right(), d->editor->height() ) );
+                           //  int pixelsOffset = fm.width( d->editor->text(),
+                           curPos );
+                           //  pixelsOffset -= d->editor->contentsX();
+                             QPoint pos = d->editor->mapToGlobal( QPoint(
+                           d->editor->cursorRect().right(), d->editor->height()
+                           ) );
 
-  // if popup is partially invisible, move to other position
-  NETRootInfo info(QX11Info::display(),
-	  NET::CurrentDesktop | NET::WorkArea | NET::NumberOfDesktops,
-	  -1, false);
-  info.activate(); // wtf is this needed for?
-  NETRect NETarea = info.workArea(info.currentDesktop());
+                             // if popup is partially invisible, move to other
+                           position NETRootInfo info(QX11Info::display(),
+                                     NET::CurrentDesktop | NET::WorkArea |
+                           NET::NumberOfDesktops, -1, false); info.activate();
+                           // wtf is this needed for? NETRect NETarea =
+                           info.workArea(info.currentDesktop());
 
-  QRect area(NETarea.pos.x, NETarea.pos.y, NETarea.size.width, NETarea.size.height);
+                             QRect area(NETarea.pos.x, NETarea.pos.y,
+                           NETarea.size.width, NETarea.size.height);
 
-  if( pos.y() + h > area.y() + area.height() )
-    pos.setY( pos.y() - h - d->editor->height() );
-  if( pos.x() + w > area.x() + area.width() )
-    pos.setX( area.x() + area.width() - w );
+                             if( pos.y() + h > area.y() + area.height() )
+                               pos.setY( pos.y() - h - d->editor->height() );
+                             if( pos.x() + w > area.x() + area.width() )
+                               pos.setX( area.x() + area.width() - w );
 
-  d->completionPopup->move( pos );
-  d->completionListBox->setFocus();*/
+                             d->completionPopup->move( pos );
+                             d->completionListBox->setFocus();*/
 }
-
-

@@ -1,7 +1,7 @@
 /**
  * blenlib/BKE_mesh.h (mar-2001 nzc)
- *	
- * $Id$ 
+ *
+ * $Id$
  *
  * ***** BEGIN GPL/BL DUAL LICENSE BLOCK *****
  *
@@ -62,7 +62,8 @@ void boundbox_mesh(struct Mesh *me, float *loc, float *size);
 void tex_space_mesh(struct Mesh *me);
 float *mesh_create_orco_render(struct Object *ob);
 float *mesh_create_orco(struct Object *ob);
-void test_index_face(struct MFace *mface, struct MCol *mc, struct TFace *tface, int nr);
+void test_index_face(struct MFace *mface, struct MCol *mc, struct TFace *tface,
+                     int nr);
 struct Mesh *get_mesh(struct Object *ob);
 void set_mesh(struct Object *ob, struct Mesh *me);
 void mball_to_mesh(struct ListBase *lb, struct Mesh *me);
@@ -71,25 +72,28 @@ void mcol_to_tface(struct Mesh *me, int freedata);
 struct MCol *tface_to_mcol_p(struct TFace *tface, int totface);
 void tface_to_mcol(struct Mesh *me);
 void free_dverts(struct MDeformVert *dvert, int totvert);
-void copy_dverts(struct MDeformVert *dst, struct MDeformVert *src, int totvert); /* __NLA */
+void copy_dverts(struct MDeformVert *dst, struct MDeformVert *src,
+                 int totvert); /* __NLA */
 int update_realtime_texture(struct TFace *tface, double time);
 void mesh_delete_material_index(struct Mesh *me, int index);
 void mesh_set_smooth_flag(struct Object *meshOb, int enableSmooth);
 
 struct BoundBox *mesh_get_bb(struct Mesh *me);
-void mesh_get_texspace(struct Mesh *me, float *loc_r, float *rot_r, float *size_r);
+void mesh_get_texspace(struct Mesh *me, float *loc_r, float *rot_r,
+                       float *size_r);
 
 /* if old, it converts mface->edcode to edge drawflags */
 void make_edges(struct Mesh *me, int old);
 void mesh_strip_loose_faces(struct Mesh *me);
 
-	/* Calculate vertex and face normals, face normals are returned in *faceNors_r if non-NULL
-	 * and vertex normals are stored in actual mverts.
-	 */
-void mesh_calc_normals(struct MVert *mverts, int numVerts, struct MFace *mfaces, int numFaces, float **faceNors_r);
+/* Calculate vertex and face normals, face normals are returned in *faceNors_r
+ * if non-NULL and vertex normals are stored in actual mverts.
+ */
+void mesh_calc_normals(struct MVert *mverts, int numVerts, struct MFace *mfaces,
+                       int numFaces, float **faceNors_r);
 
-	/* Return a newly MEM_malloc'd array of all the mesh vertex locations
-	 * (_numVerts_r_ may be NULL) */
+/* Return a newly MEM_malloc'd array of all the mesh vertex locations
+ * (_numVerts_r_ may be NULL) */
 float (*mesh_getVertexCos(struct Mesh *me, int *numVerts_r))[3];
 
 #ifdef __cplusplus
@@ -97,4 +101,3 @@ float (*mesh_getVertexCos(struct Mesh *me, int *numVerts_r))[3];
 #endif
 
 #endif
-
