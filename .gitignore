@@ -18,5 +18,11 @@
 *.out
 *.app
 *.qmake.stash
+*.pro.user
 *.pro.user.*
 Makefile
+
+# Generated
+moc_*
+ui_*
+qrc_*

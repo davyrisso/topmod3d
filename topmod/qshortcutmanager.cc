@@ -56,6 +56,7 @@
 #include "qshortcutdialog.hh"
 
 #include <QTextStream>
+#include <QAction>
 
 /*!
 	\file qshortcutmanager.cpp

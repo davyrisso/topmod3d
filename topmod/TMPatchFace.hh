@@ -175,7 +175,7 @@ public:
     return patcharray.size( );
   }
 
-  void extractPatchDataFromFace(const BiCubicBezierPatchToDLFLData* dataExtractor);
+  void extractPatchDataFromFace(BiCubicBezierPatchToDLFLData *dataExtractor);
 };
 
 #endif /* #ifndef _TM_PATCH_FACE_HH_ */

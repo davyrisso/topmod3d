@@ -37,7 +37,7 @@
 
 
 //the indices of the neighbors of the corners in a bezier patch
-static const int TMPatchFace::CORNER_MAP[][3][2]=
+const int TMPatchFace::CORNER_MAP[][3][2]=
 {
     {
         {0,1},
@@ -60,7 +60,7 @@ static const int TMPatchFace::CORNER_MAP[][3][2]=
     },
 };
 
-static const int TMPatchFace::CORNERS[][2] =
+const int TMPatchFace::CORNERS[][2] =
 {
     {0,0},
     {0,3},
@@ -68,7 +68,7 @@ static const int TMPatchFace::CORNERS[][2] =
     {3,0}
 };
 
-void TMPatchFace::extractPatchDataFromFace(const BiCubicBezierPatchToDLFLData* dataExtractor){
+void TMPatchFace::extractPatchDataFromFace(BiCubicBezierPatchToDLFLData* dataExtractor){
     TMPatchPtrArray::iterator begin = this->patcharray.begin(), end = this->patcharray.end();
     while (begin!=end) {
         TMPatch* patchPntr = *begin;

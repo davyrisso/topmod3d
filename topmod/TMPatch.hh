@@ -365,7 +365,7 @@ const Vector3d& getControlPoint(int i, int j) const
 
   }
 
-  Point3d point_at(const FourUValues &u_values, const FourUValues &v_values)const;
+  Point3d point_at(FourUValues &u_values, FourUValues &v_values)const;
 
   Point3d point_at(const double &u, const double &v)const;
 

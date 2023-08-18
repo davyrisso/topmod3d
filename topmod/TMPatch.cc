@@ -452,7 +452,7 @@ int TMPatch::GetPatchGridDimension(void){
     return (int)(TMPatch::PatchGridDimension);
 }
 
-Point3d TMPatch::point_at(const FourUValues &u_values, const FourUValues &v_values)const{
+Point3d TMPatch::point_at(FourUValues &u_values, FourUValues &v_values)const{
     double x = 0.0, y = 0.0, z = 0.0;
     for (int i = 0; i < patchsize; ++i) {
         double w1 = BEZIER_COEFFICIENTS[i] * u_values[i];
