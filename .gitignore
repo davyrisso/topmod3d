@@ -26,3 +26,6 @@ Makefile
 moc_*
 ui_*
 qrc_*
+
+# Misc.
+.DS_Store
