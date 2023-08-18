@@ -63,6 +63,7 @@
 */
 
 // #include <QA// pplication>
+#include <QAction>
 #include <QHash>
 #include <QKeyEvent>
 #include <QLabel>
