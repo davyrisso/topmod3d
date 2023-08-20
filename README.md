@@ -32,13 +32,13 @@ Build steps:
   - Ubuntu 22.04 LTS
 
 Build steps:
-   1. Install Qt
+   1. Install Qt 5.13
       1. Download the Qt unified installer from https://download.qt.io/archive/online_installers/4.6/qt-unified-linux-x64-4.6.0-online.run
          - `$ wget https://download.qt.io/archive/online_installers/4.6/qt-unified-linux-x64-4.6.0-online.run`
          - `$ chmod +x qt-unified-linux-x64-4.6.0-online.run`
       2. Install dependencies:
          - `$ sudo apt-get install libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 libxcb-xkb-dev libxkbcommon-x11-0`
-      3. Install Qt
+      3. Install Qt5 5.13
          - `$ ./qt-unified-linux-x64-4.6.0-online.run install qt.qt5.5130 --accept-licenses --confirm-command --accept-messages --email [Qt account email] --pw [Qt account password]`
       4. Alias `qmake` with the local installation (by default `/home/[user]/Qt/5.13.0/gcc_64/bin/qmake`)
    2. Install dependencies:
