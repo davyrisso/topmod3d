@@ -706,7 +706,11 @@ void GLWidget::drawIDs(QPainter *painter, const GLdouble *model,
   if (mShowVertexIDs) {
     DLFLVertexPtrArray vparray;
     object->getVertices(vparray);
+#ifdef _MSC_VER
+    std::vector<double> vlsqr_array(vparray.size());
+#else
     double vlsqr_array[vparray.size()];
+#endif //_MSC_VER
     count = 0;
     DLFLVertexPtrArray::iterator it;
     for (it = vparray.begin(); it != vparray.end(); it++) {
@@ -750,7 +754,11 @@ void GLWidget::drawIDs(QPainter *painter, const GLdouble *model,
   if (mShowEdgeIDs) {
     DLFLEdgePtrArray eparray;
     object->getEdges(eparray);
+#ifdef _MSC_VER
+    std::vector<double> elsqr_array(eparray.size());
+#else
     double elsqr_array[eparray.size()];
+#endif
     count = 0;
     DLFLEdgePtrArray::iterator it;
     for (it = eparray.begin(); it != eparray.end(); it++) {
@@ -793,7 +801,11 @@ void GLWidget::drawIDs(QPainter *painter, const GLdouble *model,
   if (mShowFaceIDs) {
     DLFLFacePtrArray fparray;
     object->getFaces(fparray);
+#ifdef _MSC_VER
+    std::vector<double> flsqr_array(fparray.size());
+#else
     double flsqr_array[fparray.size()];
+#endif //_MSC_VER
     count = 0;
     DLFLFacePtrArray::iterator it;
     for (it = fparray.begin(); it != fparray.end(); it++) {

@@ -31,6 +31,9 @@
  *
  */
 
+#ifdef _MSC_VER
+#include "Base/Inlines.hh"
+#endif //_MSC_VER
 #include "Camera3.hh"
 
 /* ***************** CAMERA *********************/

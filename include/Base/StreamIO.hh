@@ -34,7 +34,7 @@
 
 // Miscellaneous functions for operating on IO streams in C++
 
-#ifndef __GNUG__
+#if !defined __GNUG__ && !defined _MSC_VER
 #include <bool.h>
 #include <ctype.h>
 #include <iomanip.h>

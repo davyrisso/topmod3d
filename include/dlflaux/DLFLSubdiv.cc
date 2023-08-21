@@ -38,6 +38,10 @@
 #include <DLFLCoreExt.hh>
 #include <ctime>
 
+#ifndef M_SQRT1_2
+#define M_SQRT1_2 0.707106781186547524401
+#endif //M_SQRT1_2
+
 namespace DLFL {
 
 void loopSubdivide(DLFLObjectPtr obj) {
@@ -1883,7 +1887,11 @@ void starSubdivide(DLFLObjectPtr obj, double offset) { // Doug
   numVect1 = obj->num_vertices();
   vl_first = obj->beginVertex();
 
+#ifdef _MSC_VER
+  std::vector<Vector3d> NormList(num_orig_faces);
+#else
   Vector3d NormList[num_orig_faces];
+#endif //_MSC_VER
 
   // Stellate each face
   while (num_faces < num_old_faces) {

@@ -352,6 +352,7 @@ DLFLFacePtr extrudeFaceScherkCollins(
     endface = theface;
     ++scherk_collins_twist;
   }
+  return endface;
 }
 
 DLFLFacePtr extrudeFace(DLFLObjectPtr obj, DLFLFacePtr fptr, double d,
@@ -944,6 +945,7 @@ DLFLFacePtr extrudeDodeca_Symmetric(DLFLObjectPtr obj, DLFLFacePtr fptr,
   // 		}
   // 	*/
   // 		return retface;
+  return nullptr;
 }
 
 DLFLFacePtr extrudeFaceDodeca(DLFLObjectPtr obj, DLFLFacePtr fptr, double angle,
@@ -1807,7 +1809,11 @@ DLFLFacePtr extrudeFaceSmallRhombiCubOcta(DLFLObjectPtr obj, DLFLFacePtr fptr,
   double ddiv3 = d / 3.0;
   double stellate_amount;
 
+#ifdef _MSC_VER
+  std::vector<DLFLVertexPtr> base_vps(face_sides);
+#else
   DLFLVertexPtr base_vps[face_sides];
+#endif
 
   Vector3d center_sphere, center_sphere2;
   Vector3d center_normal;

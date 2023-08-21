@@ -939,7 +939,11 @@ void autoMarkEdges(DLFLObjectPtr obj) {
     // sort edge list from big to small
     DLFLEdgePtr emax, e, etmp;
     int size = edges.size();
+#ifdef _MSC_VER
+    std::vector<DLFLEdgePtr> sorted(size);
+#else
     DLFLEdgePtr sorted[size];
+#endif //_MSC_VER
 
     for (int i = 0; i < size; i++)
       sorted[i] = edges.at(i);

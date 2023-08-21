@@ -44,8 +44,15 @@
 #include <algorithm>
 #include <cstdlib>
 #include <cstring>
-#include <ext/hash_map>
-#include <ext/hash_set>
+
+#ifdef _MSC_VER
+#include <unordered_map>
+#include <unordered_set>
+#else
+  #include <ext/hash_map>
+  #include <ext/hash_set>
+#endif //_MSC_VER
+
 #include <iterator>
 #include <list>
 #include <vector>
@@ -56,15 +63,26 @@
 #include <sstream>
 typedef stringstream StringStream;
 #else
-#include <strstream.h>
-typedef strstream StringStream;
-#endif
+#ifdef _MSC_VER
+  #include <strstream>
+  typedef strstream StringStream;
+#else
+  #include <strstream.h>
+  typedef strstream StringStream;
+#endif //_MSC_VER
+#endif //__GNUG__
 
 #ifdef __GNUG__
 #include <fstream>
 #else
-#include <fstream.h>
-#endif
+#ifdef _MSC_VER
+#include <fstream>
+#define strncasecmp _strnicmp
+#define strcasecmp _stricmp
+#else
+  #include <fstream.h>
+#endif //_MSC_VER
+#endif //__GNUG__
 
 // This is required if the standard versions of the STL header files are
 // included
@@ -238,34 +256,52 @@ struct eqstr {
   bool operator()(int a, int b) const { return a == b; }
 };
 
-typedef __gnu_cxx::hash<unsigned int> Hash;
-typedef __gnu_cxx::hash_map<unsigned int, unsigned int, Hash, eqstr> HashMap;
+#ifdef _MSC_VER
+  typedef std::hash<unsigned int> Hash;
+  typedef std::unordered_map<unsigned int, unsigned int, Hash, eqstr> HashMap;
+#else
+  typedef __gnu_cxx::hash<unsigned int> Hash;
+  typedef __gnu_cxx::hash_map<unsigned int, unsigned int, Hash, eqstr> HashMap;
+#endif //_MSC_VER
 
 } // namespace DLFL
 
+
+#ifndef _MSC_VER
 namespace __gnu_cxx {
-template <> struct hash<DLFL::DLFLVertexPtr> {
-  size_t operator()(DLFL::DLFLVertexPtr p) const {
-    return reinterpret_cast<size_t>(p);
-  }
-};
-template <> struct hash<DLFL::DLFLEdgePtr> {
-  size_t operator()(DLFL::DLFLEdgePtr p) const {
-    return reinterpret_cast<size_t>(p);
-  }
-};
-template <> struct hash<DLFL::DLFLFacePtr> {
-  size_t operator()(DLFL::DLFLFacePtr p) const {
-    return reinterpret_cast<size_t>(p);
-  }
-};
+  template <> struct hash<DLFL::DLFLVertexPtr> {
+    size_t operator()(DLFL::DLFLVertexPtr p) const {
+      return reinterpret_cast<size_t>(p);
+    }
+  };
+  template <> struct hash<DLFL::DLFLEdgePtr> {
+    size_t operator()(DLFL::DLFLEdgePtr p) const {
+      return reinterpret_cast<size_t>(p);
+    }
+  };
+  template <> struct hash<DLFL::DLFLFacePtr> {
+    size_t operator()(DLFL::DLFLFacePtr p) const {
+      return reinterpret_cast<size_t>(p);
+    }
+  };
 } // namespace __gnu_cxx
+#endif //_MSC_VER
+
 namespace DLFL {
-typedef __gnu_cxx::hash_set<DLFLVertexPtr> DLFLVertexPtrSet;
-typedef __gnu_cxx::hash_set<DLFLEdgePtr> DLFLEdgePtrSet;
-typedef __gnu_cxx::hash_set<DLFLFacePtr> DLFLFacePtrSet;
-typedef __gnu_cxx::hash_map<DLFLVertexPtr, DLFLVertexPtr> DLFLVertexPtrMap;
-typedef __gnu_cxx::hash_map<DLFLEdgePtr, DLFLEdgePtr> DLFLEdgePtrMap;
-typedef __gnu_cxx::hash_map<DLFLFacePtr, DLFLFacePtr> DLFLFacePtrMap;
+#ifdef _MSC_VER
+    typedef std::unordered_set<DLFLVertexPtr> DLFLVertexPtrSet;
+    typedef std::unordered_set<DLFLEdgePtr> DLFLEdgePtrSet;
+    typedef std::unordered_set<DLFLFacePtr> DLFLFacePtrSet;
+    typedef std::unordered_map<DLFLVertexPtr, DLFLVertexPtr> DLFLVertexPtrMap;
+    typedef std::unordered_map<DLFLEdgePtr, DLFLEdgePtr> DLFLEdgePtrMap;
+    typedef std::unordered_map<DLFLFacePtr, DLFLFacePtr> DLFLFacePtrMap;
+#else
+  typedef __gnu_cxx::hash_set<DLFLVertexPtr> DLFLVertexPtrSet;
+  typedef __gnu_cxx::hash_set<DLFLEdgePtr> DLFLEdgePtrSet;
+  typedef __gnu_cxx::hash_set<DLFLFacePtr> DLFLFacePtrSet;
+  typedef __gnu_cxx::hash_map<DLFLVertexPtr, DLFLVertexPtr> DLFLVertexPtrMap;
+  typedef __gnu_cxx::hash_map<DLFLEdgePtr, DLFLEdgePtr> DLFLEdgePtrMap;
+  typedef __gnu_cxx::hash_map<DLFLFacePtr, DLFLFacePtr> DLFLFacePtrMap;
+#endif //_MSC_VER
 } // namespace DLFL
 #endif /* #ifndef _DLFL_COMMON_HH_ */
