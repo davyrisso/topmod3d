@@ -45,6 +45,9 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #else
+#ifdef _MSC_VER
+  #include <windows.h>
+#endif //_MSC_VER
 #include <GL/gl.h>
 #include <GL/glu.h>
 #endif
@@ -213,6 +216,7 @@ public:
   virtual int render(DLFLObjectPtr object) = 0;
   virtual int
   render(TMPatchObjectPtr patchObject) { /* most renderers leave this blank*/
+    return 0;
   }
   /*
     Perform any initializations required

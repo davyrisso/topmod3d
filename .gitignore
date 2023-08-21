@@ -29,3 +29,14 @@ qrc_*
 
 # Misc.
 .DS_Store
+Makefile.*
+.vscode/*
+.vs/*
+topmod/debug/*
+topmod/release/*
+include/dlflaux/debug/*
+include/dlflaux/release/*
+include/vecmat/debug/*
+include/vecmat/release/*
+include/dlflcore/debug/*
+include/dlflcore/release/*

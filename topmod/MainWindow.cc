@@ -60,6 +60,10 @@
 #include <Python.h>
 #endif
 
+#ifdef _MSC_VER
+#include <sstream>
+#endif //_MSC_VER
+
 WireframeRendererPtr MainWindow::wired;         //!< WireframeRenderer Pointer
 NormalRendererPtr MainWindow::normal;           //!< NormalRenderer Pointer
 LitRendererPtr MainWindow::lit;                 //!< LitRenderer Pointer

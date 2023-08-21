@@ -165,7 +165,7 @@ public:
     arr[3] = elem[3];
   }
 
-#ifndef __GNUG__
+#if !defined __GNUG__ && !defined _MSC_VER
   /* GCC 3.0 and later have problems with having this and the [] operator */
   // Pointer cast operator
   operator const double *(void) const { return (const double *)elem; }

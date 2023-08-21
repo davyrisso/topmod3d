@@ -36,10 +36,13 @@
 
 #include "Constants.hh"
 #include <math.h>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif //M_PI
 
-#ifndef __GNUG__
+#if !defined __GNUG__ && !defined _MSC_VER
 #include <bool.h>
-#endif
+#endif //__GNUG__ _MSC_VER
 
 typedef unsigned int uint;
 

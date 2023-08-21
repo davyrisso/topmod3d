@@ -35,6 +35,10 @@
 
 // Non-inline function and static variable definitions for DLFLRenderer class
 
+#ifdef _MSC_VER
+#include "Base/Inlines.hh"
+#endif //_MSC_VER
+
 #include "DLFLRenderer.hh"
 
 // int DLFLRenderer::render_flags = 0;
